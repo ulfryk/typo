@@ -1,42 +1,4 @@
-<?php
-
-$typo = 'adghke';
-$text = array();
-
-if ( isset( $_GET['typo'] ) ) {
-	
-	switch ( $_GET['typo'] ) {
-		case 'left':
-			$typo = 'asdf';
-			break;
-		case 'leftex':
-			$typo = 'asdfg';
-			break;
-		case 'right':
-			$typo = 'jkl;';
-			break;
-		case 'rightex':
-			$typo = 'hjkl;';
-			break;
-		case 'both':
-			$typo = 'asdfghjkl;';
-			break;
-	}
-}
-
-$typo .= ' ';
-
-$l = strlen($typo) - 1;
-
-for ( $i = 0; $i < 10; $i ++ ) {
-	$int = rand( 0, $l );
-	$text[$i] = $typo[$int];
-}
-
-
-
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE 7 ]> <html class="oldie ie7"> <![endif]-->
 <!--[if IE 8 ]> <html class="oldie ie8"> <![endif]-->
 <!--[if IE 9 ]> <html class="modern ie9"> <![endif]-->
@@ -49,51 +11,73 @@ for ( $i = 0; $i < 10; $i ++ ) {
 		<![endif]-->
 		<script src="js/main.js.php"></script>
 		<link rel="stylesheet" href="css/main.css" />
-		<style>
-			.panel {
-				
-				background-color: #aaa;
-				margin: 0;
-				padding: 0;
-				position: fixed;
-				top:0;left:0;bottom:0;right:0;
-				z-index: 11;
-				
-			}
-			.panel .line {
-				width: 100%;
-				float: left;
-			}
-			.panel .line + .line {
-				position: relative;
-					left: 20px;
-			}
-			.panel .line + .line + .line {
-				position: relative;
-					left: 40px;
-			}
-		</style>
 	</head>
 	<body>
-
+		
+		<img style="position:fixed;top:26px;left:26px;" class="rebuild" src="images/wht_conf.png">
+		
+		<img style="position:fixed;top:170px;left:26px;" class="refresh" src="images/wht_re.png">
+		
+		<div class="settings-panel">
+			
+			<section>
+				
+				<?php
+				$keyBoard = 'qwertyuiopasdfghjkl;zxcvbnm,./';
+				$keys =  str_split( $keyBoard );
+				
+				$i = 0;
+				
+				foreach ($keys as $key) {
+				
+					switch ($key) {
+						case ';' :
+							$class = 'semicolon';
+							break;
+						case '.' :
+							$class = 'dot';
+							break;
+						case ',' :
+							$class = 'comma';
+							break;
+						case '/' :
+							$class = 'slash';
+							break;
+						default :
+							$class = $key;
+							break;
+					}
+				
+					if ( $i % 10 === 0) echo '<p class="line">';
+					echo '<span class="' . $class . '">' . $key . '</span>';
+					if ( $i % 10 === 9) echo '</p>';
+					$i++;
+					
+				} ?>
+				
+				<input type="text" class="signs-count" value="100" />
+				
+				<ul>
+					<li>left</li>
+					<li>leftex</li>
+					<li>right</li>
+					<li>rightex</li>
+					<li>both</li>
+					<li>punct</li>
+				</ul>
+				
+			</section>
+			
+			<img class="go" src="images/blck_go.png" />
+			
+		</div>
 		
 		<section>
-			<p>
-				<?php 
-					foreach ($text as $letter) {
-						echo '<span>' . $letter . '</span>';
-					}
-				?>
-			</p>
+			
+			<p class="letters">&nbsp;</p>
+			
 		</section>
 		
-		<div class="panel">
-			<section>
-				<p class="line"><span>q</span><span>w</span><span>e</span><span>r</span><span>t</span><span>y</span><span>u</span><span>i</span><span>o</span><span>p</span></p>
-				<p class="line"><span>a</span><span>s</span><span>d</span><span>f</span><span>g</span><span>h</span><span>j</span><span>k</span><span>l</span><span>;</span></p>
-				<p class="line"><span>z</span><span>x</span><span>c</span><span>v</span><span>b</span><span>n</span><span>m</span><span>,</span><span>.</span><span>/</span></p>
-			</section>
-		</div>
 		
 	</body>
 </html>
