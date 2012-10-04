@@ -1,0 +1,319 @@
+
+@import "lib";
+/* ------------------------------------ *
+ * --- reset -------------------------- *
+ * ------------------------------------ */
+@import "reset"; 
+/* ------------------------------------ *
+ * --- basics ------------------------- *
+ * ------------------------------------ */
+
+html {
+	background: url("../images/typo_bg.jpg") no-repeat center center #aaaaaa;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+body {
+	
+	color: #fff;
+	
+	font-family: Arial, Helvetica, sans-serif;
+	
+	margin: 0 auto;
+	
+	padding-left: 180px;
+	
+	width: 1020px;
+}
+
+section {
+	
+	background-color: rgba( 111, 111, 111, 0.9);
+	 
+	font-size: 30px;
+	
+	line-height: 35px;
+	
+	margin: 0 auto 20px;
+	
+	overflow: hidden;
+	
+	padding: 20px;
+	
+	width: 980px;
+	
+	span {
+		
+		background-color: rgba( 2, 2, 2, 0.9);
+		
+		display: block;
+		
+		float: left;
+		
+		height: 35px;
+		
+		margin: 0 3px 6px;
+		
+		padding: 3px;
+		
+		text-align: center;
+		
+		width: 30px;
+		
+	}
+	
+	.current {
+		
+		background-color: rgba( 200, 170, 25, 0.9);
+		
+		font-size: 38px;
+		
+		font-weight: 700;
+		
+		height: 47px;
+		
+		line-height: 47px;
+		
+		margin: -6px 0 0;
+		
+		width: 36px;
+		
+	}
+	
+	.err {
+		
+		background-color: rgba( 244, 20, 1, 0.8);
+		
+		.box-shadow( 0px 0px 20px 10px #d10 );
+		
+		position: relative;
+		
+		z-index: 10;
+		
+	}
+	
+	h2, ol {
+		
+		color: #000;
+		
+	}
+	
+	h2 {
+		
+		font-size: 16px;
+		
+	}
+	
+	ol li {
+		
+		font-size: 10px;
+		
+		line-height: 12px;
+		
+	}
+}
+
+.settings-panel {
+	
+	background-color: rgba(255,255,255,0.8);
+	
+	margin: 0;
+	
+	padding: 0;
+	
+	position: fixed;
+		bottom:0;left:0;right:0;top:0;
+		
+	z-index: 20;
+	
+	
+	section {
+		
+		position: relative;
+		
+		span {
+			background-color: rgba( 22, 22, 22, 0.7);
+		}
+		
+	}
+	
+	ul {
+		
+		position: absolute;
+			right:20px;bottom:20px;
+		
+		width: 182px;	
+		
+		
+		li {
+			
+			background-color: #000;
+			
+			cursor: pointer;
+			
+			display: block;
+			
+			float: left;
+			
+			font-size: 20px;
+			
+			height: 25px;
+			
+			line-height: 25px;
+			
+			margin: 1px 0 0 1px;
+			
+			padding: 3px 10px;
+			
+			text-align: center;
+			
+			width: 70px;
+			
+			-moz-transition: all 0.2s linear;
+			-webkit-transition: all 0.2s linear;
+			-o-transition: all 0.2s linear;
+			transition: all 0.2s linear;	
+			
+			&:hover {
+				
+				background-color: #da1;
+				
+			}
+		}
+		
+	}
+	
+	.signs-count {
+		
+		background-color: #000;
+		
+		border: 0;
+		
+		color: #fff;
+		
+		font-size: 20px;
+		
+		line-height: 31px;
+		
+		margin: 0;
+		
+		outline: none;
+		
+		padding: 0 10px;
+		
+		position: absolute;
+			top: 20px;
+			right: 20px;
+		
+		text-align: center;
+		
+		width: 160px;
+	}
+
+	.selected {
+		
+		background-color: #da1;
+		
+	}
+	
+	.line {
+		
+		clear: both;
+		
+		float: left;
+		
+		span {
+			
+			-moz-transition: all 0.2s linear;
+			-webkit-transition: all 0.2s linear;
+			-o-transition: all 0.2s linear;
+			transition: all 0.2s linear;
+			
+		}
+		
+	}
+	.line + .line {
+		
+		position: relative;
+		
+		left: 20px;
+		
+	}
+	.line + .line + .line {
+		
+		position: relative;
+		
+		left: 40px;
+		
+	}
+	
+	.go {
+		
+		display: block;
+		
+		margin-left: -64px;
+		
+		position: absolute;
+		
+		top: 300px;
+		
+		left: 50%;
+		
+	}
+
+}
+
+img {
+	cursor: pointer;
+	opacity: 0.4;
+	-moz-transition: opacity 0.2s linear;
+	-webkit-transition: opacity 0.2s linear;
+	-o-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
+	
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+
+/* ------------------------------------ *
+ * --- header ------------------------- *
+ * ------------------------------------ */
+
+
+/* ------------------------------------ *
+ * --- nav ---------------------------- *
+ * ------------------------------------ */
+
+
+
+/* ------------------------------------ *
+ * --- section ------------------------ *
+ * ------------------------------------ */
+
+
+
+/* ------------------------------------ *
+ * --- footer ------------------------- *
+ * ------------------------------------ */
+ 
+
+
+
+
+/* end of CSS */
+
+
+
+
+
+
+
+
+
+
+
+
+
