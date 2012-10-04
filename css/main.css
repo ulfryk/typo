@@ -276,6 +276,11 @@ img {
 img:hover {
   opacity: 0.8;
 }
+.oldie img,
+.oldie section,
+.oldie div {
+  display: none !important;
+}
 /* ------------------------------------ *
  * --- header ------------------------- *
  * ------------------------------------ */
