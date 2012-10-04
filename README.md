@@ -1,4 +1,4 @@
 typo
 ====
 
-quick typing helper
+Web App produced to help myself learning quick typing :) 
