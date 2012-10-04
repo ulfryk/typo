@@ -1,0 +1,183 @@
+/* ------------------------------------ *
+ * --- reset -------------------------- *
+ * ------------------------------------ */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 100%;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+ins,
+del,
+a {
+  text-decoration: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* ------------------------------------ *
+ * --- basics ------------------------- *
+ * ------------------------------------ */
+html {
+  background: url("../images/typo_bg.jpg") no-repeat center center #aaaaaa;
+  background-attachment: fixed;
+  background-size: cover;
+}
+body {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+section {
+  background-color: rgba(111, 111, 111, 0.9);
+  font-size: 30px;
+  line-height: 35px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  padding: 20px;
+  width: 980px;
+}
+section span {
+  background-color: rgba(2, 2, 2, 0.9);
+  display: block;
+  float: left;
+  height: 35px;
+  margin: 0 3px 6px;
+  padding: 3px;
+  text-align: center;
+  width: 30px;
+}
+section .current {
+  background-color: rgba(200, 170, 25, 0.9);
+  font-size: 38px;
+  font-weight: 700;
+  height: 47px;
+  line-height: 47px;
+  margin: -6px 0 0;
+  width: 36px;
+}
+section .err {
+  background-color: rgba(244, 20, 1, 0.8);
+  -webkit-box-shadow: 0px 0px 20px 10px #dd1100;
+  -moz-box-shadow: 0px 0px 20px 10px #dd1100;
+  box-shadow: 0px 0px 20px 10px #dd1100;
+  position: relative;
+  z-index: 10;
+}
+section p li {
+  font-size: 16px;
+}
+/* ------------------------------------ *
+ * --- header ------------------------- *
+ * ------------------------------------ */
+/* ------------------------------------ *
+ * --- nav ---------------------------- *
+ * ------------------------------------ */
+/* ------------------------------------ *
+ * --- section ------------------------ *
+ * ------------------------------------ */
+/* ------------------------------------ *
+ * --- footer ------------------------- *
+ * ------------------------------------ */
+/* end of CSS */
