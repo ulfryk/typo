@@ -6,10 +6,11 @@
 
 (function($){
 	
-	$.fn.setItAll = function ( typo, signs ) {
+	$.fn.setItAll = function ( typo, signs, row ) {
 		var postData = {
 				typo: 'default',
-				signs: 100
+				signs: 100,
+				row: 'home'
 		}, container = this;
 		
 		if ( typo && typeof typo === 'string' ) {
@@ -19,6 +20,11 @@
 		if ( signs && typeof signs === 'number' ) {
 			postData.signs = signs;
 		}
+		
+		if ( row && typeof row === 'string' ) {
+			postData.row = row;
+		}
+		
 			
 		$.post("setting.php", postData, function(data) {
 			container.insertLetters( $(data) ).startTyping();
@@ -113,9 +119,10 @@ jQuery( function ($) {
 		panel = $('.settings-panel'),
 		_rebuild = function () {
 			var range = panel.find('ul').data( 'range' ) ? panel.find('ul').data( 'range' ) : 'default',
-				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 20;
-				console.log( count );
-			ltrs.setItAll( range, count );
+				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
+				rows = ['top', 'home', 'bottom'],
+				row = rows[ panel.find('.line.ac').index() ];
+			ltrs.setItAll( range, count, row );
 		},
 		_numberEdit = function( key ) {
 			var numberCodes = [8, 37, 39, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105], o;
@@ -140,35 +147,36 @@ jQuery( function ($) {
 	});
 	
 	panel.find('ul li').click( function () {
-		var that = $(this), range = that.text(), sel = '', keys = $('.line span');
+		var that = $(this), range = that.text(), sel = '', acLine = panel.find( '.line.ac' ), keys = acLine.find( 'span' ), i;
 		
 		that.parent().data( 'range', range );
 		
 		switch ( range ) {
 			case 'left' :
-				sel = '.a, .s, .d, .f';
+				sel = [0,1,2,3];
 				break;
 			case 'leftex' :
-				sel = '.a, .s, .d, .f, .g';
+				sel = [0,1,2,3,4];
 				break;
 			case 'right' :
-				sel = '.j, .k, .l, .semicolon';
+				sel = [6,7,8,9];
 				break;
 			case 'rightex' :
-				sel = '.h, .j, .k, .l, .semicolon';
+				sel = [5,6,7,8,9];
 				break;
 			case 'both' :
-				sel = '.a, .s, .d, .f, .g, .h, .j, .k, .l, .semicolon';
-				break;
-			case 'punct' :
-				sel = '.a, .d, .g, .h, .k, .semicolon, .dot, .comma, .slash';
+				sel = [0,1,2,3,4,5,6,7,8,9];
 				break;
 		}
 		
 		panel.find('ul li, .line span').removeClass('selected');
-		//keys.removeClass('selected');
 		that.addClass('selected');
-		panel.find( sel ).addClass('selected');
+		
+		acLine.data('selected', sel );
+		
+		for ( i = 0; i < sel.length; i += 1 ) {
+			keys.eq( sel[i] ).addClass('selected');
+		}
 		
 	});
 	
@@ -192,7 +200,20 @@ jQuery( function ($) {
 		
 	});
 	
-	
+	panel.find('.line').click( function () {
+		var next = $(this),
+			prev = next.siblings('.ac'),
+			sel = prev.data('selected');
+		
+		if ( !next.is('.ac')) {
+			prev.removeClass('ac').find('.selected').removeClass('selected');
+			next.data( 'selected', sel ).addClass('ac');
+			for ( i = 0; i < sel.length; i += 1 ) {
+				next.find('span').eq( sel[i] ).addClass('selected');
+			}
+		}
+		
+	});
 	
 	panel.find('input.signs-count').keyup( function () {
 		

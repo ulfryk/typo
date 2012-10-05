@@ -30,26 +30,11 @@
 				
 				foreach ($keys as $key) {
 				
-					switch ($key) {
-						case ';' :
-							$class = 'semicolon';
-							break;
-						case '.' :
-							$class = 'dot';
-							break;
-						case ',' :
-							$class = 'comma';
-							break;
-						case '/' :
-							$class = 'slash';
-							break;
-						default :
-							$class = $key;
-							break;
-					}
-				
-					if ( $i % 10 === 0) echo '<p class="line">';
-					echo '<span class="' . $class . '">' . $key . '</span>';
+					if ( $i === 10 ) 
+						echo '<p class="line ac" data-selected="[]">';
+					elseif ( $i % 10 === 0) 
+						echo '<p class="line">';
+					echo '<span>' . $key . '</span>';
 					if ( $i % 10 === 9) echo '</p>';
 					$i++;
 					
@@ -57,13 +42,12 @@
 				
 				<input type="text" class="signs-count" value="100" />
 				
-				<ul>
+				<ul class="select-typo">
 					<li>left</li>
-					<li>leftex</li>
 					<li>right</li>
+					<li>leftex</li>
 					<li>rightex</li>
-					<li>both</li>
-					<li>punct</li>
+					<li class="both">both</li>
 				</ul>
 				
 			</section>

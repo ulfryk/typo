@@ -198,9 +198,6 @@ section ol li {
   background-color: rgba(22, 22, 22, 0.7);
 }
 .settings-panel ul {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
   width: 182px;
 }
 .settings-panel ul li {
@@ -223,6 +220,14 @@ section ol li {
 .settings-panel ul li:hover {
   background-color: #da1;
 }
+.settings-panel ul .both {
+  width: 161px;
+}
+.settings-panel .select-typo {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
 .settings-panel .signs-count {
   background-color: #000;
   border: 0;
@@ -243,7 +248,9 @@ section ol li {
 }
 .settings-panel .line {
   clear: both;
+  cursor: pointer;
   float: left;
+  padding: 0 80px 0 0;
 }
 .settings-panel .line span {
   -moz-transition: all 0.2s linear;
@@ -251,13 +258,17 @@ section ol li {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+.settings-panel .line.ac span {
+  background-color: rgba(2, 2, 2, 0.9);
+}
+.settings-panel .line.ac .selected {
+  background-color: #DA1;
+}
 .settings-panel .line + .line {
-  position: relative;
-  left: 20px;
+  padding: 0 60px 0 20px;
 }
 .settings-panel .line + .line + .line {
-  position: relative;
-  left: 40px;
+  padding: 0 40px 0 40px;
 }
 .settings-panel .go {
   display: block;
