@@ -1,3 +1,4 @@
+/* tables still need 'cellspacing="0"' in the markup */
 /* ------------------------------------ *
  * --- reset -------------------------- *
  * ------------------------------------ */
@@ -292,6 +293,9 @@ img:hover {
 .oldie section,
 .oldie div {
   display: none !important;
+}
+textarea {
+  color: #313131;
 }
 /* ------------------------------------ *
  * --- header ------------------------- *
