@@ -42,6 +42,11 @@
 				
 				<input type="text" class="signs-count" value="100" />
 				
+				<ul class="select-type">
+					<li class="selected">signs</li>
+					<li>words</li>
+				</ul>
+				
 				<ul class="select-typo">
 					<li>left</li>
 					<li>right</li>

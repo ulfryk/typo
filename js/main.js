@@ -6,7 +6,7 @@
 
 (function($){
 	
-	$.fn.setItAll = function ( typo, signs, row ) {
+	$.fn.setItAll = function ( typo, signs, row, dataType ) {
 		var postData = {
 				typo: 'default',
 				signs: 100,
@@ -23,6 +23,10 @@
 		
 		if ( row && typeof row === 'string' ) {
 			postData.row = row;
+		}
+		
+		if ( dataType && typeof dataType === 'string' ) {
+			postData.type = dataType;
 		}
 		
 			
@@ -88,7 +92,8 @@
 				
 			if ( tch === ch ) {
 				
-				letters.eq( iter ).removeClass('current err').next().addClass('current');
+				letters.eq( iter ).removeClass('current err');
+				letters.eq( iter + 1 ).addClass('current');
 				if ( iter === max ) {
 					$(window).unbind( 'keydown' );
 					summary( errors );
@@ -118,11 +123,12 @@ jQuery( function ($) {
 	var ltrs = $('section p.letters'),
 		panel = $('.settings-panel'),
 		_rebuild = function () {
-			var range = panel.find('ul').data( 'range' ) ? panel.find('ul').data( 'range' ) : 'default',
+			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'default',
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
 				rows = ['top', 'home', 'bottom'],
-				row = rows[ panel.find('.line.ac').index() ];
-			ltrs.setItAll( range, count, row );
+				row = rows[ panel.find('.line.ac').index() ],
+				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : '';
+			ltrs.setItAll( range, count, row, dataType );
 		},
 		_numberEdit = function( key ) {
 			var numberCodes = [8, 37, 39, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105], o;
@@ -147,36 +153,40 @@ jQuery( function ($) {
 	});
 	
 	panel.find('ul li').click( function () {
-		var that = $(this), range = that.text(), sel = '', acLine = panel.find( '.line.ac' ), keys = acLine.find( 'span' ), i;
+		var that = $(this),
+			txt = that.text(), 
+			sel = '',
+			acLine = panel.find( '.line.ac' ),
+			keys = acLine.find( 'span' ),
+			i;
 		
-		that.parent().data( 'range', range );
+		if ( that.is('.select-typo li') ) {
+			that.parent().data( 'range', txt );
 		
-		switch ( range ) {
-			case 'left' :
-				sel = [0,1,2,3];
-				break;
-			case 'leftex' :
-				sel = [0,1,2,3,4];
-				break;
-			case 'right' :
-				sel = [6,7,8,9];
-				break;
-			case 'rightex' :
-				sel = [5,6,7,8,9];
-				break;
-			case 'both' :
-				sel = [0,1,2,3,4,5,6,7,8,9];
-				break;
+			switch ( txt ) {
+				case 'left'		:	sel = [0,1,2,3];				break;
+				case 'leftex'	:	sel = [0,1,2,3,4];				break;
+				case 'right'	:	sel = [6,7,8,9];				break;
+				case 'rightex'	:	sel = [5,6,7,8,9];				break;
+				case 'both'		:	sel = [0,1,2,3,4,5,6,7,8,9];	break;
+			}
+			
+			acLine.data('selected', sel );
+			
+			panel.find('.line span').removeClass('selected');
+			
+			for ( i = 0; i < sel.length; i += 1 ) {
+				keys.eq( sel[i] ).addClass('selected');
+			}
+			
 		}
 		
-		panel.find('ul li, .line span').removeClass('selected');
-		that.addClass('selected');
-		
-		acLine.data('selected', sel );
-		
-		for ( i = 0; i < sel.length; i += 1 ) {
-			keys.eq( sel[i] ).addClass('selected');
+		if ( that.is('.select-type li') ) {
+			that.parent().data( 'type', txt );
 		}
+		
+		
+		that.addClass('selected').siblings().removeClass('selected');
 		
 	});
 	
