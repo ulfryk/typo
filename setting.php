@@ -4,8 +4,25 @@ function __autoload($name) {
 	include_once( $fileName );
 }
 
-$getter = new contentGetter();
+$getter = new contentMaker();
 
+//echo '<pre>';
+//print_r( $getter->getLetters('home','left') );
+//echo '</pre>';
+
+$ltrs = $getter->getLetters('home','left');
+$l = count($ltrs);
+for ($i = 0; $i < 100; $i++) {
+	
+	
+	echo '<span>' . $ltrs[ rand(0, $l) ] . '</span>';
+
+	
+}
+
+
+
+/*
 $typo = 'adghk,./;';
 
 $conf = array(
@@ -122,3 +139,4 @@ if ( isset($_POST['type']) && $_POST['type'] === 'words' ) {
 	
 }
 
+/* */
