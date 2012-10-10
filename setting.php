@@ -23,6 +23,8 @@ $words = array(
 		'mixed' => array( 'eutrofizmie', 'nieodczutymi', 'odlatujemy', 'ulatujemy', 'filujecie', 'ruminujecie', 'odsalutuje', 'refutacje', 'litosferami', 'odczarujmy', 'namordujcie', 'rutynizacjo', 'szafujmy', 'fluorenami', 'odmulajcie', 'dializujmy', 'troficznej', 'facjendom', 'relacjonizmie', 'emfatyczni', 'trofealnym', 'luftuj', 'rezystancjom', 'admirujecie', 'alternujmy', 'falcydiom', 'afelicznej', 'rutynizacji', 'acidofilny', 'ultracyzmie', 'rutenizacyj', 'zamurujcie', 'flotacyj', 'roztulajcie', 'delimitacje', 'dyfteriami', 'afinujmy', 'stryjuniami', 'ustrojeniami', 'antyofercie')
 	)
 );
+
+
 /*
 
 INSERT INTO  `typo`.`words` (`id` , `word` , `range` , `row` ) VALUES ( NULL ,  'fagas',  'left',  'home' );
@@ -80,5 +82,7 @@ if ( $type === 'words' ) {
 	}
 	
 }
+
+$getter -> setWords( $words );
 
 /* */?>

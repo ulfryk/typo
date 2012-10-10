@@ -52,15 +52,17 @@ class contentMaker {
 	public function setWords( $table )
 	{
 		foreach ( $table as $row => $cnt ) {
-			echo '<div style="padding:50px">'
+			echo '<div style="padding:50px">';
+			
 			foreach ( $cnt as $range => $words ) {
 				foreach ( $words as $word ) {
-					echo $row . ' : ' . $row . ' : ' . $word;
+					echo $row . ' : ' . $range . ' : ' . $word . '<br/>';
 				}
 			}
+			
 			echo '</div>';
 		}
 		
-	}//setWords();
+	}//setWords();*/
 	
 }
