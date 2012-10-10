@@ -11,6 +11,7 @@ class contentMaker {
 	
 	public function getLetters ( $row, $range )
 	{
+		
 		$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
 		
 		try
@@ -43,4 +44,8 @@ class contentMaker {
 		return str_split( $packs->fetch(PDO::FETCH_OBJ)->packs . ' ' );
 	}
 	
+	public function getWords( $row, $range )
+	{
+		
+	}
 }

@@ -6,48 +6,12 @@ function __autoload($name) {
 
 $getter = new contentMaker();
 
-//echo '<pre>';
-//print_r( $getter->getLetters('home','left') );
-//echo '</pre>';
-
-$ltrs = $getter->getLetters('home','left');
-$l = count($ltrs);
-for ($i = 0; $i < 100; $i++) {
-	
-	
-	echo '<span>' . $ltrs[ rand(0, $l) ] . '</span>';
-
-	
-}
 
 
-
-/*
-$typo = 'adghk,./;';
-
-$conf = array(
-	'home' => array(
-		'left' => 'asdf',
-		'leftex' => 'asdfg',
-		'right' => 'jkl;',
-		'rightex' => 'hjkl;',
-		'both' => 'asdfghjkl;'
-	),
-	'bottom' => array(
-		'left' => 'zxcv',
-		'leftex' => 'zxcvb',
-		'right' => 'm,./',
-		'rightex' => 'nm,./',
-		'both' => 'zxcvbnm,./'
-	),
-	'top' => array(
-		'left' => 'qwer',
-		'leftex' => 'qwert',
-		'right' => 'uiop',
-		'rightex' => 'yuiop',
-		'both' => 'qwertyuiop'
-	)
-);
+$range = 'left';
+$row = 'home';
+$signs = 100;
+$type = 'letters';
 
 $words = array(
 	'home' => array(
@@ -60,65 +24,35 @@ $words = array(
 	)
 );
 
-$row = $conf['home'];
-
 $wordGroup = $words['home']['mixed'];
 
-if (isset($_POST['row'])) {
-	switch ( $_POST['row'] ) {
-		case 'home' :
-			$row = $conf['home'];
-			break;
-		case 'top' :
-			$row = $conf['top'];
-			break;
-		case 'bottom' :
-			$row = $conf['bottom'];
-			break;
-	}
-	
-}
+if (isset($_POST['row']))
+	$row = $_POST['row'];
 
 if (isset($_POST['typo'])) {
-	switch ( $_POST['typo'] ) {
-		case 'left' :
-			$typo = $row['left'];
-			break;
-		case 'leftex' :
-			$typo = $row['leftex'];
-			break;
-		case 'right' :
-			$typo = $row['right'];
-			break;
-		case 'rightex' :
-			$typo = $row['rightex'];
-			break;
-		case 'both' :
-			$typo = $row['both'];
-			break;
-	}
-
-	$wordGroup = $words['home'][$_POST['typo']];
-	
+	$range = $_POST['typo'];
 }
 
-$typo .= ' ';
+if ( isset($_POST['type']) && $_POST['type'] === 'words' )
+	$type = $_POST['type'];
 
-$signs = 100;
+if ( isset($_POST['signs']) && is_numeric($_POST['signs']) ) {
+	$countMin = $type === 'words' ? 5 : 9;
+	$countDef = $type === 'words' ? 100 : 25;
+	$countMax = $type === 'words' ? 201 : 51;
+	$signs = ( $_POST['signs'] > $countMin && $_POST['signs'] < $countMax ) ? $_POST['signs'] : $countDef;
+}
 
-if ( isset($_POST['signs']) && is_numeric($_POST['signs']) ) 
-	$signs = ( $_POST['signs'] > 9 && $_POST['signs'] < 201 ) ? $_POST['signs'] : 100;
-
-$l = strlen( $typo ) - 1;
+$wordGroup = $words[ 'home' ][ $range ];
 $lw = count( $wordGroup ) - 1;
 
 
-if ( isset($_POST['type']) && $_POST['type'] === 'words' ) {
+if ( $type === 'words' ) {
 	
 	
 	
 	for ($i = 0; $i < $signs/2; $i++) {
-		$thisWord = str_split( $wordGroup[ rand( 0, $lw ) ] );
+		$thisWord = str_split( $wordGroup[ mt_rand( 0, $lw ) ] );
 		
 		echo '<strong style="float:left;display:block">';
 		
@@ -133,8 +67,11 @@ if ( isset($_POST['type']) && $_POST['type'] === 'words' ) {
 
 } else {
 	
+	$typo = $getter->getLetters($row,$range);
+	$l = count( $typo ) - 1;
+	
 	for ($i = 0; $i < $signs; $i++) {
-		echo '<span>' . $typo[ rand( 0, $l ) ] . '</span>';
+		echo '<span>' . $typo[ mt_rand( 0, $l ) ] . '</span>';
 	}
 	
 }
