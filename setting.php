@@ -1,4 +1,10 @@
 <?php
+function __autoload($name) {
+	$fileName = 'core/' . $name . '.php';
+	include_once( $fileName );
+}
+
+$getter = new contentGetter();
 
 $typo = 'adghk,./;';
 
