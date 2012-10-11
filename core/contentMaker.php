@@ -29,11 +29,11 @@ class contentMaker {
 				
 		
 		
-		$sql = 'SELECT packs FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
+		$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
 		
-		$packs = $dbh->query( $sql );
+		$pack = $dbh->query( $sql );
 		
-		if(!$packs)
+		if(!$pack)
 		{
 			echo '<pre>';
 			print_r( $dbh->errorInfo() );
@@ -41,7 +41,7 @@ class contentMaker {
 			die("Execute query error!");
 		}
 		
-		return str_split( $packs->fetch(PDO::FETCH_OBJ)->packs . ' ' );
+		return str_split( $pack->fetch(PDO::FETCH_OBJ)->pack . ' ' );
 	}
 	
 	public function getWords( $row, $range )

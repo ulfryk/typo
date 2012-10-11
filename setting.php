@@ -17,6 +17,7 @@ $words = array(
 	'home' => array(
 		'left' => array( 'fagasa', 'fasada', 'fagas', 'faga', 'agfa', 'gafa', 'fasad', 'gaf', 'agf', 'fag', 'agada', 'gaga', 'fasa', 'gada', 'gag', 'agad', 'daga', 'fas', 'dada', 'gad', 'fa', 'saga', 'dag', 'aga', 'sag', 'sad', 'sasa', 'asas', 'ag', 'sas', 'aaa', 'da', 'ad', 'asa', 'aa', 'as' ),
 		'leftex' => array( 'fagasa', 'feedera', 'agrafa', 'feeder', 'fagas', 'farada', 'efedra', 'agraf', 'grafa', 'fasada', 'gafa', 'reggae', 'faga', 'graf', 'fasad', 'agfa', 'farad', 'efedr', 'safes', 'grege', 'degras', 'farsa', 'sfera', 'grasera', 'feses', 'sargasa', 'fag', 'afera', 'gaf', 'agf', 'sardara', 'free', 'arfa', 'segars', 'safe', 'fere', 'gaga', 'draga', 'rafa', 'agada' ),
+		'right' => array( 'kulkuj', 'kolokuj', 'kuliku', 'huloku', 'ulokuj', 'kuluj', 'hulku', 'kokilij', 'kluku', 'huloki', 'kuliki', 'jukki', 'kikuj', 'lilijko', 'lulku', 'hokku', 'kijku', 'holiku', 'jukko', 'uliku', 'lokuj', 'kulko', 'kulki', 'hulok', 'kilku', 'ukuj', 'hulki', 'jukk', 'kuku', 'huju', 'kokilio', 'huku', 'kluki', 'kluko', 'ukuli', 'kliku', 'holku', 'kulili', 'holuj', 'juku' ),
 		'rightex' => array( 'kulkuj', 'kolokuj', 'kuliku', 'huloku', 'ulokuj', 'kuluj', 'hulku', 'kokilij', 'kluku', 'huloki', 'kuliki', 'jukki', 'kikuj', 'lilijko', 'lulku', 'hokku', 'kijku', 'holiku', 'jukko', 'uliku', 'lokuj', 'kulko', 'kulki', 'hulok', 'kilku', 'ukuj', 'hulki', 'jukk', 'kuku', 'huju', 'kokilio', 'huku', 'kluki', 'kluko', 'ukuli', 'kliku', 'holku', 'kulili', 'holuj', 'juku' ),
 		'both' => array( 'sahajdaka', 'sfajdaj', 'alkajska', 'fajdaj', 'sahajdak', 'klaskaj', 'fajf', 'falaska', 'jafska', 'dallaska', 'skajska', 'kalfas', 'hajdaj', 'kajsaka', 'fajka', 'gdakaj', 'sfajda', 'gafla', 'fagasa', 'flaka', 'falka', 'fakla', 'flaga', 'halfa', 'skalska', 'sajdaka', 'kaskada', 'kafla', 'haskala', 'kajsak', 'fajda', 'kajaka', 'alfka', 'sajdak', 'kaskad', 'klaska', 'fasada', 'haskal', 'kajak', 'half' ),
 		'bothex' => array( 'gadulsku', 'alofijska', 'ofiklejd', 'ufajdali', 'diflugio', 'fukugo', 'ufologu', 'udehejski', 'fauluje', 'alofijski', 'golfiku', 'flaguje', 'felaskiej', 'flekuje', 'fluksjo', 'kugluje', 'fluksji', 'hajduku', 'udehejska', 'figluje', 'fluksje', 'falaskiej', 'fluksja', 'flokuje', 'ufologii', 'fiksuje', 'delhijski', 'faksuje', 'delhijska', 'deklasuje', 'odfasuje', 'fiokuje', 'alofijka', 'koliguje', 'aksjologie', 'alofijek', 'juhasiego', 'judofil', 'folguj', 'sufluj'),
@@ -83,6 +84,9 @@ if ( $type === 'words' ) {
 	
 }
 
-$getter -> setWords( $words );
+//$getter -> setWords( $words );
+//echo '<pre>';
+//print_r( $getter->getLetters($row,$range) );
+//echo '</pre>';
 
 /* */?>

@@ -8,9 +8,10 @@
 	
 	$.fn.setItAll = function ( typo, signs, row, dataType ) {
 		var postData = {
-				typo: 'default',
+				typo: 'left',
 				signs: 100,
-				row: 'home'
+				row: 'home',
+				type: 'letters'
 		}, container = this;
 		
 		if ( typo && typeof typo === 'string' ) {
@@ -123,7 +124,7 @@ jQuery( function ($) {
 	var ltrs = $('section p.letters'),
 		panel = $('.settings-panel'),
 		_rebuild = function () {
-			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'default',
+			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'both',
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
 				rows = ['top', 'home', 'bottom'],
 				row = rows[ panel.find('.line.ac').index() ],
