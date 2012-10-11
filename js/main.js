@@ -128,7 +128,7 @@ jQuery( function ($) {
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
 				rows = ['top', 'home', 'bottom'],
 				row = rows[ panel.find('.line.ac').index() ],
-				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : '';
+				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : 'signs';
 			ltrs.setItAll( range, count, row, dataType );
 		},
 		_numberEdit = function( key ) {

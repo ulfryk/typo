@@ -11,58 +11,70 @@ class contentMaker {
 	
 	public function getLetters ( $row, $range )
 	{
-		
+		// db connection strings
 		$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
+		$user = $this->db_conf['username'];
+		$pass = $this->db_conf['password'];
 		
-		try
-		{
-		
-		$dbh = new PDO($mysql_db, $this->db_conf['username'], $this->db_conf['password']);
-		
-		}
-		catch(PDOException $pe)
-		{
-			
-			die('Connection error, because: ' . $pe->getMessage());
-			
-		}
-				
-		
-		
+		// sql query
 		$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
 		
-		$pack = $dbh->query( $sql );
+		// get pack of letters and marks ew. use //try{ ... }catch(PDOException $e){die('Error: '.$e->getMessage());}
+		$dbh = new PDO($mysql_db, $user, $pass);
+		$output = $dbh->query( $sql )->fetch(PDO::FETCH_OBJ)->pack;
+		$dbh = null;
 		
-		if(!$pack)
-		{
-			echo '<pre>';
-			print_r( $dbh->errorInfo() );
-			echo '</pre><br/><br/>';
-			die("Execute query error!");
+		//return array of signs to be used
+		return str_split( $output . ' ' );
+	}
+	
+	public function getWords ( $row, $range )
+	{
+		// db connection strings
+		$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
+		$user = $this->db_conf['username'];
+		$pass = $this->db_conf['password'];
+		
+		// sql query
+		$sql = 'SELECT word FROM words WHERE words.row = "' . $row . '" AND words.range = "' . $range .'"';
+		
+		// get array of words ew. use //try{ ... }catch(PDOException $e){die('Error: '.$e->getMessage());}
+		$dbh = new PDO($mysql_db, $user, $pass);
+		$stmt = $dbh->query( $sql );
+		
+		$output = array('aa','bb','cc');
+		$i = 0;
+		
+		while ( $word = $stmt->fetch(PDO::FETCH_OBJ)->word ) {
+		    $output[$i] = $word;
+			$i++;
 		}
 		
-		return str_split( $pack->fetch(PDO::FETCH_OBJ)->pack . ' ' );
+		$dbh = null;
+	
+		//return array of words to be used
+		return $output;
 	}
 	
-	public function getWords( $row, $range )
+	public function setWords ( $table )
 	{
-		
-	}
-	
-	public function setWords( $table )
-	{
+		// db connection strings
+		//$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
+		//$user = $this->db_conf['username'];
+		//$pass = $this->db_conf['password'];
+		//$dbh = new PDO($mysql_db, $user, $pass);
 		foreach ( $table as $row => $cnt ) {
 			echo '<div style="padding:50px">';
-			
 			foreach ( $cnt as $range => $words ) {
 				foreach ( $words as $word ) {
 					echo $row . ' : ' . $range . ' : ' . $word . '<br/>';
+					//$sql = 'INSERT INTO  `typo`.`words` (`word` , `row` , `range`  ) VALUES ( \'' . $word . '\',  \'' . $row . '\',  \'' . $range . '\' )';
+					//$dbh->exec( $sql );
 				}
 			}
-			
 			echo '</div>';
 		}
-		
-	}//setWords();*/
+		//$dbh = null;
+	}
 	
 }

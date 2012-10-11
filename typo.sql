@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 11, 2012 at 07:45 AM
--- Server version: 5.5.23
--- PHP Version: 5.3.15
+-- Czas wygenerowania: 11 Paź 2012, 10:42
+-- Wersja serwera: 5.5.16
+-- Wersja PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `typo`
+-- Baza danych: `typo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `letters`
+-- Struktura tabeli dla  `letters`
 --
 
 CREATE TABLE IF NOT EXISTS `letters` (
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS `letters` (
   `row` varchar(15) NOT NULL,
   `range` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
--- Dumping data for table `letters`
+-- Zrzut danych tabeli `letters`
 --
 
 INSERT INTO `letters` (`id`, `pack`, `row`, `range`) VALUES
@@ -58,7 +58,7 @@ INSERT INTO `letters` (`id`, `pack`, `row`, `range`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `words`
+-- Struktura tabeli dla  `words`
 --
 
 CREATE TABLE IF NOT EXISTS `words` (
@@ -67,14 +67,290 @@ CREATE TABLE IF NOT EXISTS `words` (
   `row` varchar(15) NOT NULL,
   `range` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=279 ;
 
 --
--- Dumping data for table `words`
+-- Zrzut danych tabeli `words`
 --
 
 INSERT INTO `words` (`id`, `word`, `row`, `range`) VALUES
-(1, 'fagas', 'home', 'left');
+(0, 'stryjuniami', 'home', 'mixed'),
+(1, 'ustrojeniami', 'home', 'mixed'),
+(2, 'antyofercie', 'home', 'mixed'),
+(3, 'fagasa', 'home', 'left'),
+(4, 'fasada', 'home', 'left'),
+(5, 'fagas', 'home', 'left'),
+(6, 'faga', 'home', 'left'),
+(7, 'agfa', 'home', 'left'),
+(8, 'gafa', 'home', 'left'),
+(9, 'fasad', 'home', 'left'),
+(10, 'gaf', 'home', 'left'),
+(11, 'agf', 'home', 'left'),
+(12, 'fag', 'home', 'left'),
+(13, 'agada', 'home', 'left'),
+(14, 'gaga', 'home', 'left'),
+(15, 'fasa', 'home', 'left'),
+(16, 'gada', 'home', 'left'),
+(17, 'gag', 'home', 'left'),
+(18, 'agad', 'home', 'left'),
+(19, 'daga', 'home', 'left'),
+(20, 'fas', 'home', 'left'),
+(21, 'dada', 'home', 'left'),
+(22, 'gad', 'home', 'left'),
+(23, 'fa', 'home', 'left'),
+(24, 'saga', 'home', 'left'),
+(25, 'dag', 'home', 'left'),
+(26, 'aga', 'home', 'left'),
+(27, 'sag', 'home', 'left'),
+(28, 'sad', 'home', 'left'),
+(29, 'sasa', 'home', 'left'),
+(30, 'asas', 'home', 'left'),
+(31, 'ag', 'home', 'left'),
+(32, 'sas', 'home', 'left'),
+(33, 'aaa', 'home', 'left'),
+(34, 'da', 'home', 'left'),
+(35, 'ad', 'home', 'left'),
+(36, 'asa', 'home', 'left'),
+(37, 'aa', 'home', 'left'),
+(38, 'as', 'home', 'left'),
+(39, 'fagasa', 'home', 'leftex'),
+(40, 'feedera', 'home', 'leftex'),
+(41, 'agrafa', 'home', 'leftex'),
+(42, 'feeder', 'home', 'leftex'),
+(43, 'fagas', 'home', 'leftex'),
+(44, 'farada', 'home', 'leftex'),
+(45, 'efedra', 'home', 'leftex'),
+(46, 'agraf', 'home', 'leftex'),
+(47, 'grafa', 'home', 'leftex'),
+(48, 'fasada', 'home', 'leftex'),
+(49, 'gafa', 'home', 'leftex'),
+(50, 'reggae', 'home', 'leftex'),
+(51, 'faga', 'home', 'leftex'),
+(52, 'graf', 'home', 'leftex'),
+(53, 'fasad', 'home', 'leftex'),
+(54, 'agfa', 'home', 'leftex'),
+(55, 'farad', 'home', 'leftex'),
+(56, 'efedr', 'home', 'leftex'),
+(57, 'safes', 'home', 'leftex'),
+(58, 'grege', 'home', 'leftex'),
+(59, 'degras', 'home', 'leftex'),
+(60, 'farsa', 'home', 'leftex'),
+(61, 'sfera', 'home', 'leftex'),
+(62, 'grasera', 'home', 'leftex'),
+(63, 'feses', 'home', 'leftex'),
+(64, 'sargasa', 'home', 'leftex'),
+(65, 'fag', 'home', 'leftex'),
+(66, 'afera', 'home', 'leftex'),
+(67, 'gaf', 'home', 'leftex'),
+(68, 'agf', 'home', 'leftex'),
+(69, 'sardara', 'home', 'leftex'),
+(70, 'free', 'home', 'leftex'),
+(71, 'arfa', 'home', 'leftex'),
+(72, 'segars', 'home', 'leftex'),
+(73, 'safe', 'home', 'leftex'),
+(74, 'fere', 'home', 'leftex'),
+(75, 'gaga', 'home', 'leftex'),
+(76, 'draga', 'home', 'leftex'),
+(77, 'rafa', 'home', 'leftex'),
+(78, 'agada', 'home', 'leftex'),
+(79, 'kulkuj', 'home', 'right'),
+(80, 'kolokuj', 'home', 'right'),
+(81, 'kuliku', 'home', 'right'),
+(82, 'huloku', 'home', 'right'),
+(83, 'ulokuj', 'home', 'right'),
+(84, 'kuluj', 'home', 'right'),
+(85, 'hulku', 'home', 'right'),
+(86, 'kokilij', 'home', 'right'),
+(87, 'kluku', 'home', 'right'),
+(88, 'huloki', 'home', 'right'),
+(89, 'kuliki', 'home', 'right'),
+(90, 'jukki', 'home', 'right'),
+(91, 'kikuj', 'home', 'right'),
+(92, 'lilijko', 'home', 'right'),
+(93, 'lulku', 'home', 'right'),
+(94, 'hokku', 'home', 'right'),
+(95, 'kijku', 'home', 'right'),
+(96, 'holiku', 'home', 'right'),
+(97, 'jukko', 'home', 'right'),
+(98, 'uliku', 'home', 'right'),
+(99, 'lokuj', 'home', 'right'),
+(100, 'kulko', 'home', 'right'),
+(101, 'kulki', 'home', 'right'),
+(102, 'hulok', 'home', 'right'),
+(103, 'kilku', 'home', 'right'),
+(104, 'ukuj', 'home', 'right'),
+(105, 'hulki', 'home', 'right'),
+(106, 'jukk', 'home', 'right'),
+(107, 'kuku', 'home', 'right'),
+(108, 'huju', 'home', 'right'),
+(109, 'kokilio', 'home', 'right'),
+(110, 'huku', 'home', 'right'),
+(111, 'kluki', 'home', 'right'),
+(112, 'kluko', 'home', 'right'),
+(113, 'ukuli', 'home', 'right'),
+(114, 'kliku', 'home', 'right'),
+(115, 'holku', 'home', 'right'),
+(116, 'kulili', 'home', 'right'),
+(117, 'holuj', 'home', 'right'),
+(118, 'juku', 'home', 'right'),
+(119, 'kulkuj', 'home', 'rightex'),
+(120, 'kolokuj', 'home', 'rightex'),
+(121, 'kuliku', 'home', 'rightex'),
+(122, 'huloku', 'home', 'rightex'),
+(123, 'ulokuj', 'home', 'rightex'),
+(124, 'kuluj', 'home', 'rightex'),
+(125, 'hulku', 'home', 'rightex'),
+(126, 'kokilij', 'home', 'rightex'),
+(127, 'kluku', 'home', 'rightex'),
+(128, 'huloki', 'home', 'rightex'),
+(129, 'kuliki', 'home', 'rightex'),
+(130, 'jukki', 'home', 'rightex'),
+(131, 'kikuj', 'home', 'rightex'),
+(132, 'lilijko', 'home', 'rightex'),
+(133, 'lulku', 'home', 'rightex'),
+(134, 'hokku', 'home', 'rightex'),
+(135, 'kijku', 'home', 'rightex'),
+(136, 'holiku', 'home', 'rightex'),
+(137, 'jukko', 'home', 'rightex'),
+(138, 'uliku', 'home', 'rightex'),
+(139, 'lokuj', 'home', 'rightex'),
+(140, 'kulko', 'home', 'rightex'),
+(141, 'kulki', 'home', 'rightex'),
+(142, 'hulok', 'home', 'rightex'),
+(143, 'kilku', 'home', 'rightex'),
+(144, 'ukuj', 'home', 'rightex'),
+(145, 'hulki', 'home', 'rightex'),
+(146, 'jukk', 'home', 'rightex'),
+(147, 'kuku', 'home', 'rightex'),
+(148, 'huju', 'home', 'rightex'),
+(149, 'kokilio', 'home', 'rightex'),
+(150, 'huku', 'home', 'rightex'),
+(151, 'kluki', 'home', 'rightex'),
+(152, 'kluko', 'home', 'rightex'),
+(153, 'ukuli', 'home', 'rightex'),
+(154, 'kliku', 'home', 'rightex'),
+(155, 'holku', 'home', 'rightex'),
+(156, 'kulili', 'home', 'rightex'),
+(157, 'holuj', 'home', 'rightex'),
+(158, 'juku', 'home', 'rightex'),
+(159, 'sahajdaka', 'home', 'both'),
+(160, 'sfajdaj', 'home', 'both'),
+(161, 'alkajska', 'home', 'both'),
+(162, 'fajdaj', 'home', 'both'),
+(163, 'sahajdak', 'home', 'both'),
+(164, 'klaskaj', 'home', 'both'),
+(165, 'fajf', 'home', 'both'),
+(166, 'falaska', 'home', 'both'),
+(167, 'jafska', 'home', 'both'),
+(168, 'dallaska', 'home', 'both'),
+(169, 'skajska', 'home', 'both'),
+(170, 'kalfas', 'home', 'both'),
+(171, 'hajdaj', 'home', 'both'),
+(172, 'kajsaka', 'home', 'both'),
+(173, 'fajka', 'home', 'both'),
+(174, 'gdakaj', 'home', 'both'),
+(175, 'sfajda', 'home', 'both'),
+(176, 'gafla', 'home', 'both'),
+(177, 'fagasa', 'home', 'both'),
+(178, 'flaka', 'home', 'both'),
+(179, 'falka', 'home', 'both'),
+(180, 'fakla', 'home', 'both'),
+(181, 'flaga', 'home', 'both'),
+(182, 'halfa', 'home', 'both'),
+(183, 'skalska', 'home', 'both'),
+(184, 'sajdaka', 'home', 'both'),
+(185, 'kaskada', 'home', 'both'),
+(186, 'kafla', 'home', 'both'),
+(187, 'haskala', 'home', 'both'),
+(188, 'kajsak', 'home', 'both'),
+(189, 'fajda', 'home', 'both'),
+(190, 'kajaka', 'home', 'both'),
+(191, 'alfka', 'home', 'both'),
+(192, 'sajdak', 'home', 'both'),
+(193, 'kaskad', 'home', 'both'),
+(194, 'klaska', 'home', 'both'),
+(195, 'fasada', 'home', 'both'),
+(196, 'haskal', 'home', 'both'),
+(197, 'kajak', 'home', 'both'),
+(198, 'half', 'home', 'both'),
+(199, 'gadulsku', 'home', 'bothex'),
+(200, 'alofijska', 'home', 'bothex'),
+(201, 'ofiklejd', 'home', 'bothex'),
+(202, 'ufajdali', 'home', 'bothex'),
+(203, 'diflugio', 'home', 'bothex'),
+(204, 'fukugo', 'home', 'bothex'),
+(205, 'ufologu', 'home', 'bothex'),
+(206, 'udehejski', 'home', 'bothex'),
+(207, 'fauluje', 'home', 'bothex'),
+(208, 'alofijski', 'home', 'bothex'),
+(209, 'golfiku', 'home', 'bothex'),
+(210, 'flaguje', 'home', 'bothex'),
+(211, 'felaskiej', 'home', 'bothex'),
+(212, 'flekuje', 'home', 'bothex'),
+(213, 'fluksjo', 'home', 'bothex'),
+(214, 'kugluje', 'home', 'bothex'),
+(215, 'fluksji', 'home', 'bothex'),
+(216, 'hajduku', 'home', 'bothex'),
+(217, 'udehejska', 'home', 'bothex'),
+(218, 'figluje', 'home', 'bothex'),
+(219, 'fluksje', 'home', 'bothex'),
+(220, 'falaskiej', 'home', 'bothex'),
+(221, 'fluksja', 'home', 'bothex'),
+(222, 'flokuje', 'home', 'bothex'),
+(223, 'ufologii', 'home', 'bothex'),
+(224, 'fiksuje', 'home', 'bothex'),
+(225, 'delhijski', 'home', 'bothex'),
+(226, 'faksuje', 'home', 'bothex'),
+(227, 'delhijska', 'home', 'bothex'),
+(228, 'deklasuje', 'home', 'bothex'),
+(229, 'odfasuje', 'home', 'bothex'),
+(230, 'fiokuje', 'home', 'bothex'),
+(231, 'alofijka', 'home', 'bothex'),
+(232, 'koliguje', 'home', 'bothex'),
+(233, 'aksjologie', 'home', 'bothex'),
+(234, 'alofijek', 'home', 'bothex'),
+(235, 'juhasiego', 'home', 'bothex'),
+(236, 'judofil', 'home', 'bothex'),
+(237, 'folguj', 'home', 'bothex'),
+(238, 'sufluj', 'home', 'bothex'),
+(239, 'eutrofizmie', 'home', 'mixed'),
+(240, 'nieodczutymi', 'home', 'mixed'),
+(241, 'odlatujemy', 'home', 'mixed'),
+(242, 'ulatujemy', 'home', 'mixed'),
+(243, 'filujecie', 'home', 'mixed'),
+(244, 'ruminujecie', 'home', 'mixed'),
+(245, 'odsalutuje', 'home', 'mixed'),
+(246, 'refutacje', 'home', 'mixed'),
+(247, 'litosferami', 'home', 'mixed'),
+(248, 'odczarujmy', 'home', 'mixed'),
+(249, 'namordujcie', 'home', 'mixed'),
+(250, 'rutynizacjo', 'home', 'mixed'),
+(251, 'szafujmy', 'home', 'mixed'),
+(252, 'fluorenami', 'home', 'mixed'),
+(253, 'odmulajcie', 'home', 'mixed'),
+(254, 'dializujmy', 'home', 'mixed'),
+(255, 'troficznej', 'home', 'mixed'),
+(256, 'facjendom', 'home', 'mixed'),
+(257, 'relacjonizmie', 'home', 'mixed'),
+(258, 'emfatyczni', 'home', 'mixed'),
+(259, 'trofealnym', 'home', 'mixed'),
+(260, 'luftuj', 'home', 'mixed'),
+(261, 'rezystancjom', 'home', 'mixed'),
+(262, 'admirujecie', 'home', 'mixed'),
+(263, 'alternujmy', 'home', 'mixed'),
+(264, 'falcydiom', 'home', 'mixed'),
+(265, 'afelicznej', 'home', 'mixed'),
+(266, 'rutynizacji', 'home', 'mixed'),
+(267, 'acidofilny', 'home', 'mixed'),
+(268, 'ultracyzmie', 'home', 'mixed'),
+(269, 'rutenizacyj', 'home', 'mixed'),
+(270, 'zamurujcie', 'home', 'mixed'),
+(271, 'flotacyj', 'home', 'mixed'),
+(272, 'roztulajcie', 'home', 'mixed'),
+(273, 'delimitacje', 'home', 'mixed'),
+(274, 'dyfteriami', 'home', 'mixed'),
+(275, 'afinujmy', 'home', 'mixed');
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
