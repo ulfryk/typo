@@ -9,7 +9,7 @@ class contentMaker {
 		'password' => ''
 	);
 	
-	private function dbConnect ()
+	private function dbQuery ( $sql )
 	{
 		// db connection strings
 		$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
@@ -17,7 +17,9 @@ class contentMaker {
 		$pass = $this->db_conf['password'];
 		
 		// open connection //try{ ... }catch(PDOException $e){die('Error: '.$e->getMessage());}
-		return new PDO($mysql_db, $user, $pass);
+		$dbh = new PDO($mysql_db, $user, $pass);
+		
+		return $dbh -> query( $sql );
 	}
 	
 	public function getLetters ( $row, $range )
@@ -26,8 +28,7 @@ class contentMaker {
 		$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
 		
 		// get letters pack
-		$dbh = $this -> dbConnect();
-		$output = $dbh -> query( $sql ) -> fetch(PDO::FETCH_OBJ) -> pack;
+		$output = $this -> dbQuery($sql) -> fetch(PDO::FETCH_OBJ) -> pack;
 		$dbh = null;
 		
 		//return array of signs to be used
@@ -40,21 +41,28 @@ class contentMaker {
 		$sql = 'SELECT word FROM words WHERE words.row = "' . $row . '" AND words.range = "' . $range .'"';
 		
 		// get words array from db
-		$dbh = $this -> dbConnect();
-		$stmt = $dbh -> query( $sql );
+		$stmt = $this -> dbQuery( $sql );
 		
-		$output = array('aa','bb','cc');
+		$output = array();
 		$i = 0;
-		
 		while ( $word = $stmt->fetch(PDO::FETCH_OBJ)->word ) {
 		    $output[$i] = $word;
 			$i++;
 		}
-		
 		$dbh = null;
 	
 		//return array of words to be used
 		return $output;
+	}
+	
+	public function getContent ( $type, $row, $range )
+	{
+		if ( $type === 'letters' )
+			$content = $this -> getLetters($row,$range);
+		elseif ( $type === 'words' )
+			$content = $this -> getWords('home', $range);
+		
+		return $content;
 	}
 	
 	public function setWords ( $table )

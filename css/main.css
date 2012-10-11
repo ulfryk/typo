@@ -143,6 +143,16 @@ body {
   padding: 20px;
   width: 60%;
 }
+img.rebuild {
+  position: fixed;
+  top: 26px;
+  left: 26px;
+}
+img.refresh {
+  position: fixed;
+  top: 170px;
+  left: 26px;
+}
 .go-black-4-ie {
   font-size: 20px;
   line-height: 30px;
@@ -299,9 +309,16 @@ section ol li {
 }
 .settings-panel .go {
   display: block;
-  margin-left: -64px;
+  margin-right: -460px;
   position: absolute;
-  top: 300px;
+  top: 270px;
+  right: 50%;
+}
+.settings-panel .go-back {
+  display: block;
+  margin-left: -460px;
+  position: absolute;
+  top: 270px;
   left: 50%;
 }
 img {
@@ -315,24 +332,7 @@ img {
 img:hover {
   opacity: 0.8;
 }
-.oldie img,
-.oldie section,
-.oldie div {
-  display: none !important;
-}
 textarea {
   color: #313131;
 }
-/* ------------------------------------ *
- * --- header ------------------------- *
- * ------------------------------------ */
-/* ------------------------------------ *
- * --- nav ---------------------------- *
- * ------------------------------------ */
-/* ------------------------------------ *
- * --- section ------------------------ *
- * ------------------------------------ */
-/* ------------------------------------ *
- * --- footer ------------------------- *
- * ------------------------------------ */
 /* end of CSS */

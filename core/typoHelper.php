@@ -24,7 +24,7 @@ class typoHelper {
 	{
 		$type = $this -> getValid( 'type' );
 		
-		$countMin = $type != 'words' ? 5 : 9;
+		$countMin = $type != 'words' ? 9 : 5;
 		$countDef = $type != 'words' ? 100 : 25;
 		$countMax = $type != 'words' ? 201 : 51;
 		
@@ -37,6 +37,17 @@ class typoHelper {
 			$count = $countDef;
 		
 		return $count;
+	}
+	
+	public function requestIsAjax ()
+	{
+		return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+	}
+	
+	public function render( $view = 'main', $content = false, $count = false )
+	{
+		if( $content ) $length = count( $content ) - 1;
+		require 'views/_' . $view . '.php';
 	}
 
 }

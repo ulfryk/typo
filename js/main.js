@@ -6,6 +6,51 @@
 
 (function($){
 	
+	var _err = 0,
+		_errors = [],
+		_summary = function ( ers, ltrs, count ) {
+				
+			var l = ers.length, i,
+				sec = '<section class="error-info">\n\r<h2>Done with ' + l + ' errors - ' + Math.round( ( (count - l) / count )*100 ) + '% accuracy.</h2>\n\r<ol>';
+			
+			for ( i = 0; i < l; i += 1 ) {
+				sec += '<li>\n\r<p>You typed <strong>';
+				sec += ers[i].typed === ' ' ? '_' : ers[i].typed;
+				sec += '</strong> where should be <strong>';
+				sec += ers[i].letter === ' ' ? '_' : ers[i].letter;
+				sec += '</strong> <small>( pos: ';
+				sec += ers[i].pos + 1;
+				sec += ' ) </small></p>\n\r</li>'
+				
+				ltrs.eq( ers[i].pos ).addClass('err');
+			}
+			sec += '</ol>\n\r</section>';
+			
+			$('body').append( sec );
+		},
+		_translateChar = function ( chr ) {
+			var outChar;
+			switch ( chr ) {
+				case 188:
+					outChar = 44;
+					break;
+				case 190:
+					outChar = 46;
+					break;
+				case 191:
+					outChar = 47;
+					break;
+				case 186:
+					outChar = 59;
+					break;
+				default:
+					outChar = chr;
+					break;
+			}
+			
+			return outChar;
+		}
+	
 	$.fn.setItAll = function ( range, signs, row, dataType ) {
 		var postData = {
 				range: 'left',
@@ -42,70 +87,43 @@
 		var context = this;
 		context.html('').append( data );
 		$('section.error-info').remove();
+		_err = 0;
+		_errors = [];
 		return context;
 	};
 	
 	$.fn.startTyping = function () {
-		var context = this, letters = context.find('span'),
-			lett_count = letters.length, max = lett_count - 1,
-			iter = 0, err = 0, errors = [],
-			summary = function ( ers ) {
-				
-				var l = ers.length, i,
-					sec = '<section class="error-info">\n\r<h2>Done with ' + l + ' errors - ' + Math.round( ( (lett_count - l) / lett_count )*100 ) + '% accuracy.</h2>\n\r<ol>';
-				
-				for ( i = 0; i < l; i += 1 ) {
-					sec += '<li>\n\r<p>You typed <strong>';
-					sec += ers[i].typed === ' ' ? '_' : ers[i].typed;
-					sec += '</strong> where should be <strong>';
-					sec += ers[i].letter === ' ' ? '_' : ers[i].letter;
-					sec += '</strong> <small>( pos: ';
-					sec += ers[i].pos + 1;
-					sec += ' ) </small></p>\n\r</li>'
-					
-					letters.eq( ers[i].pos ).addClass('err');
-				}
-				sec += '</ol>\n\r</section>';
-				
-				$('body').append( sec );
-			};
-	
-		letters.eq( iter ).addClass('current');
-		
+		var context = this,
+			letters = context.find('span'),
+			lett_count = letters.length,
+			max = lett_count - 1,
+			iter = context.find('span.current').index(),
+			err = _err,
+			errors = _errors;
+			
+			console.log( iter );
+			
 		$(window).keydown( function (e) {
 			var ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0),
-				tch = e.keyCode;
+				tch = _translateChar(e.keyCode);
 				
-				switch ( tch ) {
-					case 188:
-						tch = 44;
-						break;
-					case 190:
-						tch = 46;
-						break;
-					case 191:
-						tch = 47;
-						break;
-					case 186:
-						tch = 59;
-						break;
-				}
-				
-				console.log( letters.eq( iter ) );
-				console.log( 'pressed: ' + tch );
-				console.log( 'needed: ' + ch );
-				
+				console.log( tch );
+				console.log( ch );
 				
 			if ( tch === ch ) {
 				
 				letters.eq( iter ).removeClass('current err');
 				letters.eq( iter + 1 ).addClass('current');
+				
 				if ( iter === max ) {
+					
 					$(window).unbind( 'keydown' );
-					summary( errors );
+					_summary( errors, letters, lett_count );
 					
 				} else {
+					
 					iter += 1;
+					
 				}
 				
 			} else {
@@ -118,8 +136,15 @@
 				err += 1;
 				letters.eq( iter ).addClass('err');
 			}
+			
 		});
 		
+		return context;
+	};
+	
+	$.fn.pauseTyping = function () {
+		var context = this;
+		$(window).unbind('keydown');
 		return context;
 	};
 	
@@ -129,8 +154,8 @@ jQuery( function ($) {
 	var ltrs = $('section p.letters'),
 		panel = $('.settings-panel'),
 		_rebuild = function () {
-			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'both',
-				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
+			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'left',
+				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 50;
 				rows = ['top', 'home', 'bottom'],
 				row = rows[ panel.find('.line.ac').index() ],
 				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : 'letters';
@@ -157,9 +182,9 @@ jQuery( function ($) {
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 		
 	} else {
-	
+		
 		$('img.rebuild').click( function () {
-			panel.fadeIn(300).find('section').slideDown(400);
+			panel.fadeIn(300).pauseTyping().find('section').slideDown(400);
 		});
 		
 		$('img.refresh').click( function () {
@@ -204,8 +229,13 @@ jQuery( function ($) {
 			
 		});
 		
+		panel.find('img.go-back').click( function () {
+			panel.fadeOut( 400 ).find('section').slideUp(300);
+			ltrs.startTyping();
+		});
+		
 		panel.find('img.go').click( function () {
-			panel.fadeOut( 400 ).find('section').slideUp(300);;
+			panel.fadeOut( 400 ).find('section').slideUp(300);
 			_rebuild();
 		});
 		

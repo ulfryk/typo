@@ -4,14 +4,11 @@ function __autoload($name) {
 	include_once( $fileName );
 }
 
-function isAjax () {
-	return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
-}
+$helper = new typoHelper(); // some useful functions
 
+if ( $helper -> requestIsAjax() ) {
 
-if ( isAjax() ) {
-
-	$helper = new typoHelper(); // some useful functions
+	
 	$getter = new contentMaker(); //model
 	
 	// values from request
@@ -21,17 +18,16 @@ if ( isAjax() ) {
 	$count	=	$helper -> getValidCount();
 	
 	// get output from db
-	if ( $type === 'letters' ) 		$content = $getter -> getLetters($row,$range);
-	elseif ( $type === 'words' )	$content = $getter -> getWords('home', $range);
+	$content = $getter -> getContent( $type, $row, $range );
 	
-	$length = count( $content ) - 1;
-	$view = $type;
+	// show output
+	$helper -> render( $type, $content, $count );
 
 } else {
-	
-	$view = 'main';
+
+	// show output
+	$helper -> render();
 	
 }
 
-// show output
-require_once 'views/_' . $view . '.php';
+

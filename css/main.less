@@ -9,14 +9,21 @@
  * ------------------------------------ */
 
 html {
+	
 	background: url("../images/typo_bg.jpg") no-repeat center center #aaaaaa;
+	
 	background-attachment: fixed;
+	
 	background-size: cover;
 	
 	&.oldie {
+		
 		background-color: #000;
+		
 		background-image: url("../images/go_dark.jpg");
+		
 		height: 100%;
+		
 		width: 100%;
 	}
 }
@@ -34,20 +41,36 @@ body {
 	width: 1020px;
 	
 	.oldie & {
-		//background-color: #613131;
+		
 		height: 60%;
+		
 		padding: 20px;
+		
 		width: 60%;
+		
+	}
+}
+
+img {
+	&.rebuild {
+		position:fixed;top:26px;left:26px;
+	}
+	
+	&.refresh {
+		position:fixed;top:170px;left:26px;
 	}
 }
 
 .go-black-4-ie {
 	
-	//background-color: #222;
 	font-size: 20px;
+	
 	line-height: 30px;
+	
 	margin: 0 auto;
+	
 	padding: 20px;
+	
 	width: 500px;
 	
 	strong {
@@ -296,11 +319,25 @@ section {
 		
 		display: block;
 		
-		margin-left: -64px;
+		margin-right: -460px;
 		
 		position: absolute;
 		
-		top: 300px;
+		top: 270px;
+		
+		right: 50%;
+		
+	}
+	
+	.go-back {
+		
+		display: block;
+		
+		margin-left: -460px;
+		
+		position: absolute;
+		
+		top: 270px;
 		
 		left: 50%;
 		
@@ -321,37 +358,9 @@ img {
 	}
 }
 
-.oldie {
-	img, section, div {
-		display: none !important;
-	}
-}
-
 textarea {
 	color: darken( desaturate( #7a9e44, 50% ), 25%);
 }
-/* ------------------------------------ *
- * --- header ------------------------- *
- * ------------------------------------ */
-
-
-/* ------------------------------------ *
- * --- nav ---------------------------- *
- * ------------------------------------ */
-
-
-
-/* ------------------------------------ *
- * --- section ------------------------ *
- * ------------------------------------ */
-
-
-
-/* ------------------------------------ *
- * --- footer ------------------------- *
- * ------------------------------------ */
- 
-
 
 /* end of CSS */
  
