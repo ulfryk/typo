@@ -6,16 +6,16 @@
 
 (function($){
 	
-	$.fn.setItAll = function ( typo, signs, row, dataType ) {
+	$.fn.setItAll = function ( range, signs, row, dataType ) {
 		var postData = {
-				typo: 'left',
+				range: 'left',
 				signs: 100,
 				row: 'home',
 				type: 'letters'
 		}, container = this;
 		
-		if ( typo && typeof typo === 'string' ) {
-			postData.typo = typo;
+		if ( range && typeof range === 'string' ) {
+			postData.range = range;
 		}
 		
 		if ( signs && typeof signs === 'number' ) {
@@ -31,7 +31,7 @@
 		}
 		
 			
-		$.post("setting.php", postData, function(data) {
+		$.post("index.php", postData, function(data) {
 			container.insertLetters( $(data) ).startTyping();
 		});
 		
@@ -128,7 +128,7 @@ jQuery( function ($) {
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 100;
 				rows = ['top', 'home', 'bottom'],
 				row = rows[ panel.find('.line.ac').index() ],
-				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : 'signs';
+				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : 'letters';
 			ltrs.setItAll( range, count, row, dataType );
 		},
 		_numberEdit = function( key ) {
