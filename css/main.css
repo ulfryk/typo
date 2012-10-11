@@ -125,12 +125,33 @@ html {
   background-attachment: fixed;
   background-size: cover;
 }
+html.oldie {
+  background-color: #000;
+  background-image: url("../images/go_dark.jpg");
+  height: 100%;
+  width: 100%;
+}
 body {
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0 auto;
   padding-left: 180px;
   width: 1020px;
+}
+.oldie body {
+  height: 60%;
+  padding: 20px;
+  width: 60%;
+}
+.go-black-4-ie {
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 500px;
+}
+.go-black-4-ie strong {
+  color: #da1;
 }
 section {
   background-color: rgba(255, 255, 255, 0.4);

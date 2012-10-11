@@ -6,9 +6,6 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title> typo </title>
-		<!--[if lt IE 9]>
-			<script src="js/html5shiv.min.js"></script>
-		<![endif]-->
 		<script src="js/main.js.php"></script>
 		<link rel="stylesheet" href="css/main.css" />
 	</head>

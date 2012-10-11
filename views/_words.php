@@ -4,9 +4,7 @@
 ?>
 <strong style="float:left;display:block">
 	<?php for ($j = 0; $j < count( $word ); $j++): ?>
-	<span>
-		<?php echo $word[$j] ?>
-	</span>
+	<span><?php echo $word[$j] ?></span>
 	<?php endfor; ?>
 	<span> </span>
 </strong>

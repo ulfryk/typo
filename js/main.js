@@ -91,6 +91,11 @@
 						break;
 				}
 				
+				console.log( letters.eq( iter ) );
+				console.log( 'pressed: ' + tch );
+				console.log( 'needed: ' + ch );
+				
+				
 			if ( tch === ch ) {
 				
 				letters.eq( iter ).removeClass('current err');
@@ -142,98 +147,106 @@ jQuery( function ($) {
 	
 			return o;
 	
-		};
-
-	
-	$('img.rebuild').click( function () {
-		panel.fadeIn(300).find('section').slideDown(400);
-	});
-	
-	$('img.refresh').click( function () {
-		_rebuild();
-	});
-	
-	panel.find('ul li').click( function () {
-		var that = $(this),
-			txt = that.text(), 
-			sel = '',
-			acLine = panel.find( '.line.ac' ),
-			keys = acLine.find( 'span' ),
-			i;
+		},
+		ieInfo;
+	// for old ie users
+	if ( $('.oldie').length ) {
 		
-		if ( that.is('.select-typo li') ) {
-			that.parent().data( 'range', txt );
+		$('div, section, ul').remove();
+		$('body').append('<p class="go-black-4-ie"></p>');
+		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 		
-			switch ( txt ) {
-				case 'left'		:	sel = [0,1,2,3];				break;
-				case 'leftex'	:	sel = [0,1,2,3,4];				break;
-				case 'right'	:	sel = [6,7,8,9];				break;
-				case 'rightex'	:	sel = [5,6,7,8,9];				break;
-				case 'both'		:	sel = [0,1,2,3,4,5,6,7,8,9];	break;
+	} else {
+	
+		$('img.rebuild').click( function () {
+			panel.fadeIn(300).find('section').slideDown(400);
+		});
+		
+		$('img.refresh').click( function () {
+			_rebuild();
+		});
+		
+		panel.find('ul li').click( function () {
+			var that = $(this),
+				txt = that.text(), 
+				sel = '',
+				acLine = panel.find( '.line.ac' ),
+				keys = acLine.find( 'span' ),
+				i;
+			
+			if ( that.is('.select-typo li') ) {
+				that.parent().data( 'range', txt );
+			
+				switch ( txt ) {
+					case 'left'		:	sel = [0,1,2,3];				break;
+					case 'leftex'	:	sel = [0,1,2,3,4];				break;
+					case 'right'	:	sel = [6,7,8,9];				break;
+					case 'rightex'	:	sel = [5,6,7,8,9];				break;
+					case 'both'		:	sel = [0,1,2,3,4,5,6,7,8,9];	break;
+				}
+				
+				acLine.data('selected', sel );
+				
+				panel.find('.line span').removeClass('selected');
+				
+				for ( i = 0; i < sel.length; i += 1 ) {
+					keys.eq( sel[i] ).addClass('selected');
+				}
+				
 			}
 			
-			acLine.data('selected', sel );
-			
-			panel.find('.line span').removeClass('selected');
-			
-			for ( i = 0; i < sel.length; i += 1 ) {
-				keys.eq( sel[i] ).addClass('selected');
+			if ( that.is('.select-type li') ) {
+				that.parent().data( 'type', txt );
 			}
 			
-		}
-		
-		if ( that.is('.select-type li') ) {
-			that.parent().data( 'type', txt );
-		}
-		
-		
-		that.addClass('selected').siblings().removeClass('selected');
-		
-	});
-	
-	panel.find('img.go').click( function () {
-		panel.fadeOut( 400 ).find('section').slideUp(300);;
-		_rebuild();
-	});
-	
-	panel.find('input.signs-count').keydown( function (e) {
-		var key = e.keyCode, that = $(this)
-		if ( !_numberEdit( key ) ) e.preventDefault();
-		
-		if ( key === 38 && that.val() < 200 ) {
 			
-			that.val( -(-that.val()) + 1 );
-		}
+			that.addClass('selected').siblings().removeClass('selected');
+			
+		});
 		
-		if ( key === 40 && that.val() > 10 ) {
-			that.val( that.val() - 1 );
-		}
+		panel.find('img.go').click( function () {
+			panel.fadeOut( 400 ).find('section').slideUp(300);;
+			_rebuild();
+		});
 		
-	});
-	
-	panel.find('.line').click( function () {
-		var next = $(this),
-			prev = next.siblings('.ac'),
-			sel = prev.data('selected');
-		
-		if ( !next.is('.ac')) {
-			prev.removeClass('ac').find('.selected').removeClass('selected');
-			next.data( 'selected', sel ).addClass('ac');
-			for ( i = 0; i < sel.length; i += 1 ) {
-				next.find('span').eq( sel[i] ).addClass('selected');
+		panel.find('input.signs-count').keydown( function (e) {
+			var key = e.keyCode, that = $(this)
+			if ( !_numberEdit( key ) ) e.preventDefault();
+			
+			if ( key === 38 && that.val() < 200 ) {
+				
+				that.val( -(-that.val()) + 1 );
 			}
-		}
+			
+			if ( key === 40 && that.val() > 10 ) {
+				that.val( that.val() - 1 );
+			}
+			
+		});
 		
-	});
-	
-	panel.find('input.signs-count').keyup( function () {
+		panel.find('.line').click( function () {
+			var next = $(this),
+				prev = next.siblings('.ac'),
+				sel = prev.data('selected');
+			
+			if ( !next.is('.ac')) {
+				prev.removeClass('ac').find('.selected').removeClass('selected');
+				next.data( 'selected', sel ).addClass('ac');
+				for ( i = 0; i < sel.length; i += 1 ) {
+					next.find('span').eq( sel[i] ).addClass('selected');
+				}
+			}
+			
+		});
 		
-		var that = $(this);			
-		if ( that.val() > 200 ) that.val(200);
-		if ( that.val() < 10 ) that.val(10);
-		if ( !that.val() ) that.val(100);
-		
-	});
-	
+		panel.find('input.signs-count').keyup( function () {
+			
+			var that = $(this);			
+			if ( that.val() > 200 ) that.val(200);
+			if ( that.val() < 10 ) that.val(10);
+			if ( !that.val() ) that.val(100);
+			
+		});
+	}
 });
 

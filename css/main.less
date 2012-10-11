@@ -12,6 +12,13 @@ html {
 	background: url("../images/typo_bg.jpg") no-repeat center center #aaaaaa;
 	background-attachment: fixed;
 	background-size: cover;
+	
+	&.oldie {
+		background-color: #000;
+		background-image: url("../images/go_dark.jpg");
+		height: 100%;
+		width: 100%;
+	}
 }
 
 body { 
@@ -25,6 +32,27 @@ body {
 	padding-left: 180px;
 	
 	width: 1020px;
+	
+	.oldie & {
+		//background-color: #613131;
+		height: 60%;
+		padding: 20px;
+		width: 60%;
+	}
+}
+
+.go-black-4-ie {
+	
+	//background-color: #222;
+	font-size: 20px;
+	line-height: 30px;
+	margin: 0 auto;
+	padding: 20px;
+	width: 500px;
+	
+	strong {
+		color: #da1;
+	}
 }
 
 section {
@@ -323,8 +351,6 @@ textarea {
  * --- footer ------------------------- *
  * ------------------------------------ */
  
-
-
 
 
 /* end of CSS */
