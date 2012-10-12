@@ -13,23 +13,34 @@
 		<img class="rebuild" src="images/wht_conf.png" />
 		<img class="refresh" src="images/wht_re.png" />
 		<div class="settings-panel">
-			<section><?php
+			<section><?php // create keyboard view with selected 'left' range of 'home' row
 				$keys =  str_split( 'qwertyuiopasdfghjkl;zxcvbnm,./' );
 				$i = 0;
-				foreach ($keys as $key) {
-					if ( $i === 10 ) echo '<p class="line ac" data-selected="[]">';
-					elseif ( $i % 10 === 0) echo '<p class="line">';
-					echo '<span>' . $key . '</span>';
-					if ( $i % 10 === 9) echo '</p>';
+				$k = array(10,11,12,13);
+				foreach ($keys as $key):
+					
+					if ( $i === 10 ): ?>
+				<p class="line ac" data-selected="[0,1,2,3]">
+					<?php elseif ( $i % 10 === 0): ?>
+				<p class="line">
+					<?php endif; ?>
+					
+					<span <?php if(in_array($i, $k)) echo ' class="selected"' ?>><?php echo $key; ?></span>
+					
+					<?php if ( $i % 10 === 9): ?>
+				</p><?php
+				
+					endif;
 					$i++;
-				}?>
+				endforeach; ?>
+				
 				<input type="text" class="signs-count" value="100" />
 				<ul class="select-type" data-type="letters">
 					<li class="selected">letters</li>
 					<li>words</li>
 				</ul>
-				<ul class="select-typo">
-					<li>left</li>
+				<ul class="select-typo" data-typo="left">
+					<li class="selected">left</li>
 					<li>right</li>
 					<li>leftex</li>
 					<li>rightex</li>
