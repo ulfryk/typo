@@ -4,12 +4,12 @@ function __autoload($name) {
 	include_once( $fileName );
 }
 
-$helper = new typoHelper(); // some useful functions
+$helper = new typoHelper(); // some useful functions, 'core/typoHelper.php'
 
 if ( $helper -> requestIsAjax() ) {
 
 	
-	$getter = new contentMaker(); //model
+	$getter = new contentMaker(); //model , 'core/contentMaker.php'
 	
 	// values from request
 	$row	=	$helper -> getValid( 'row' );
@@ -21,12 +21,12 @@ if ( $helper -> requestIsAjax() ) {
 	$content = $getter -> getContent( $type, $row, $range );
 	
 	// show output
-	$helper -> render( $type, $content, $count );
+	$helper -> render( $type, $content, $count ); // will include 'views/_letters.php' or 'views/_words.php' ( depends on $type value ) passing specific data
 
 } else {
 
 	// show output
-	$helper -> render();
+	$helper -> render(); // will include 'views/_main.php'
 	
 }
 
