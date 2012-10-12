@@ -24,7 +24,7 @@
 					$i++;
 				}?>
 				<input type="text" class="signs-count" value="100" />
-				<ul class="select-type">
+				<ul class="select-type" data-type="letters">
 					<li class="selected">letters</li>
 					<li>words</li>
 				</ul>

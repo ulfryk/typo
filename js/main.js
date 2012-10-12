@@ -173,7 +173,7 @@ jQuery( function ($) {
 	// for old ie users
 	if ( $('.oldie').length ) {
 		
-		$('div, section, ul').remove();
+		$('div, section').remove();
 		$('body').append('<p class="go-black-4-ie"></p>');
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 		
@@ -193,7 +193,7 @@ jQuery( function ($) {
 				sel = '',
 				acLine = panel.find( '.line.ac' ),
 				keys = acLine.find( 'span' ),
-				i;
+				i, contCount;
 			
 			if ( that.is('.select-typo li') ) {
 				that.parent().data( 'range', txt );
@@ -217,7 +217,16 @@ jQuery( function ($) {
 			}
 			
 			if ( that.is('.select-type li') ) {
-				that.parent().data( 'type', txt );
+				if ( txt != that.parent().data('type') ){
+					contCount = panel.find('input.signs-count');
+					if ( txt === 'words' ) {
+						contCount.val( contCount.val()/4 );
+					} else if ( txt === 'letters' ) {
+						contCount.val( contCount.val()*4 );
+					}
+					
+					that.parent().data( 'type', txt );
+				}
 			}
 			
 			
@@ -267,10 +276,20 @@ jQuery( function ($) {
 		
 		panel.find('input.signs-count').keyup( function () {
 			
-			var that = $(this);			
-			if ( that.val() > 200 ) that.val(200);
-			if ( that.val() < 10 ) that.val(10);
-			if ( !that.val() ) that.val(100);
+			var that = $(this),
+				contType = panel.find('.select-type').data('type');
+				
+			if ( contType === 'letters' ) {
+				if ( that.val() > 200 ) that.val(200);
+				if ( that.val() < 10 ) that.val(10);
+				if ( !that.val() ) that.val(100);
+			}
+					
+			if ( contType === 'words' ) {
+				if ( that.val() > 50 ) that.val(50);
+				if ( that.val() < 5 ) that.val(5);
+				if ( !that.val() ) that.val(25);
+			}
 			
 		});
 	}
