@@ -101,14 +101,10 @@
 			err = _err,
 			errors = _errors;
 			
-			console.log( iter );
 			
 		$(window).keydown( function (e) {
 			var ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0),
 				tch = _translateChar(e.keyCode);
-				
-				console.log( tch );
-				console.log( ch );
 				
 			if ( tch === ch ) {
 				

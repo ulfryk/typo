@@ -20,11 +20,15 @@ SET time_zone = "+00:00";
 -- Baza danych: `typo`
 --
 
+DROP TABLE IF EXISTS `letters`;
+DROP TABLE IF EXISTS `words` ;
+
 -- --------------------------------------------------------
 
 --
 -- Struktura tabeli dla  `letters`
 --
+
 
 CREATE TABLE IF NOT EXISTS `letters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
