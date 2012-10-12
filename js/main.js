@@ -5,45 +5,48 @@
 
 
 (function($){
+	/* ------------------------------ *
+	 *		extend jQuery object	  *
+	 * ------------------------------ */
 	
-	var _err = 0,
-		_errors = [],
-		_summary = function ( ers, ltrs, count ) {
+	var _err = 0, //'private' property containig up2date number of mistakes 
+		_errors = [], // 'private' property - array with info about those mistakes
+		_summary = function ( ltrs, count ) { // private method wich renders final info about accuracy, number of mistakes etc.
 				
-			var l = ers.length, i,
+			var l = _errors.length, i,
 				sec = '<section class="error-info">\n\r<h2>Done with ' + l + ' errors - ' + Math.round( ( (count - l) / count )*100 ) + '% accuracy.</h2>\n\r<ol>';
 			
 			for ( i = 0; i < l; i += 1 ) {
 				sec += '<li>\n\r<p>You typed <strong>';
-				sec += ers[i].typed === ' ' ? '_' : ers[i].typed;
+				sec += _errors[i].typed === ' ' ? '_' : _errors[i].typed; //what you typed ( renders '_' when typed ' ' )
 				sec += '</strong> where should be <strong>';
-				sec += ers[i].letter === ' ' ? '_' : ers[i].letter;
+				sec += _errors[i].letter === ' ' ? '_' : _errors[i].letter; //what you should type ( renders '_' when typed ' ' )
 				sec += '</strong> <small>( pos: ';
-				sec += ers[i].pos + 1;
+				sec += _errors[i].pos + 1; // on what position
 				sec += ' ) </small></p>\n\r</li>'
 				
-				ltrs.eq( ers[i].pos ).addClass('err');
+				ltrs.eq( _errors[i].pos ).addClass('err'); // light up mistaken positions
 			}
 			sec += '</ol>\n\r</section>';
 			
 			$('body').append( sec );
 		},
-		_translateChar = function ( chr ) {
+		_translateChar = function ( chr ) { // private method wich translates some key codes like "/" or ";" to accurate char codes
 			var outChar;
 			switch ( chr ) {
-				case 188:
+				case 188: // ","
 					outChar = 44;
 					break;
-				case 190:
+				case 190: // "."
 					outChar = 46;
 					break;
-				case 191:
+				case 191: // "/"
 					outChar = 47;
 					break;
-				case 186:
+				case 186: // ";"
 					outChar = 59;
 					break;
-				default:
+				default: // other codes are ok
 					outChar = chr;
 					break;
 			}
@@ -51,105 +54,100 @@
 			return outChar;
 		}
 	
-	$.fn.setItAll = function ( range, signs, row, dataType ) {
-		var postData = {
+	$.fn.setItAll = function ( range, signs, row, dataType ) { // public method that gets new practice set from server and renders it
+		var postData = { // default data ( just in case )
 				range: 'left',
 				signs: 100,
 				row: 'home',
 				type: 'letters'
 		}, container = this;
 		
-		if ( range && typeof range === 'string' ) {
-			postData.range = range;
-		}
-		
-		if ( signs && typeof signs === 'number' ) {
-			postData.signs = signs;
-		}
-		
-		if ( row && typeof row === 'string' ) {
-			postData.row = row;
-		}
-		
-		if ( dataType && typeof dataType === 'string' ) {
-			postData.type = dataType;
-		}
-		
+		// some data type control
+		if ( range		&& typeof range === 'string' )		postData.range = range;
+		if ( signs		&& typeof signs === 'number' )		postData.signs = signs;
+		if ( row		&& typeof row === 'string' )		postData.row = row;
+		if ( dataType	&& typeof dataType === 'string' )	postData.type = dataType;
 			
 		$.post("index.php", postData, function(data) {
-			container.insertLetters( $(data) ).startTyping();
+			container.insertLetters( $(data) ).startTyping(); // use other methods to render requested data
 		});
 		
-		return container;
+		return container; // for chain use
 	};
 	
-	$.fn.insertLetters = function ( data ) {
+	$.fn.insertLetters = function ( data ) { // public method rendering new practice set
 		var context = this;
-		context.html('').append( data );
-		$('section.error-info').remove();
-		_err = 0;
-		_errors = [];
-		return context;
+		
+		context.html('').append( data ); 
+		$('section.error-info').remove(); // clear errors
+		_errors = []; // clear errors
+		
+		return context; // for chain use
 	};
 	
-	$.fn.startTyping = function () {
+	$.fn.startTyping = function () { // public method setting up typing interactions
 		var context = this,
 			letters = context.find('span'),
-			lett_count = letters.length,
-			max = lett_count - 1,
-			iter = context.find('span.current').index(),
-			err = _err,
-			errors = _errors;
+			lettCount = letters.length,
+			max = lettCount - 1,
+			iter = context.find('span.current').index();
 			
 			
-		$(window).keydown( function (e) {
-			var ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0),
-				tch = _translateChar(e.keyCode);
+		$(window).keydown( function (e) { // typing interactions
+			var ch, tch;
+			//_preventBrowser( e );
+			
+			ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0); // current letter charcode
+			tch = _translateChar(e.keyCode); // typed charcode
 				
-			if ( tch === ch ) {
+			if ( tch === ch ) { // case typed good
 				
 				letters.eq( iter ).removeClass('current err');
-				letters.eq( iter + 1 ).addClass('current');
 				
-				if ( iter === max ) {
+				if ( iter === max ) { // if came to the end
 					
-					$(window).unbind( 'keydown' );
-					_summary( errors, letters, lett_count );
+					context.pauseTyping(); // using another metod to puse/stop interactions
+					_summary( letters, lettCount ); // use private method to show summary
 					
-				} else {
+				} else { // if not, highlight next letter
 					
 					iter += 1;
+					letters.eq( iter ).addClass('current'); // not using '.next()' becouse in 'words' mode whole words are in div's so it won't work
 					
 				}
 				
-			} else {
+			} else { // case typed bad
 				
-				errors[err] = {
+				_errors[ _errors.length ] = { // add info about current mistake
 					letter: String.fromCharCode( ch ),
 					typed: String.fromCharCode( tch ),
 					pos: iter
 				};
-				err += 1;
-				letters.eq( iter ).addClass('err');
+				
+				letters.eq( iter ).addClass('err'); // red higlight mistyped letter
 			}
 			
 		});
 		
-		return context;
+		return context; // for chain use
 	};
 	
 	$.fn.pauseTyping = function () {
 		var context = this;
-		$(window).unbind('keydown');
-		return context;
+		
+		$(window).unbind('keydown'); // :-) and that's all for pause
+		
+		return context; // for chain use
 	};
 	
-})(jQuery);
+})(jQuery); // end extend $
 
-jQuery( function ($) {
-	var ltrs = $('section p.letters'),
-		panel = $('.settings-panel'),
-		_rebuild = function () {
+jQuery( function ($) { // on document/window load ...
+	
+	// semi global vars and functions
+	var ltrs = $('section p.letters'), // place for contents to type
+		panel = $('.settings-panel'), // the settings panel
+		_rebuild = function () { // get values, send request and render new excercise
 			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'left',
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 50;
 				rows = ['top', 'home', 'bottom'],
@@ -157,37 +155,58 @@ jQuery( function ($) {
 				dataType = panel.find('.select-type').data( 'type' ) ? panel.find('.select-type').data( 'type' ) : 'letters';
 			ltrs.setItAll( range, count, row, dataType );
 		},
-		_numberEdit = function( key ) {
+		_useful = function( key ) { // check if typed key is number, numpad number, backspace or left/right arrow
 			var numberCodes = [8, 37, 39, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105], o;
 	
-			if ($.inArray(-(-key ), numberCodes) > -1) {
+			if ( $.inArray( -(-key ) , numberCodes) > -1 ) { // "-(-" makes us shure 'key' type is 'number' not 'string'
 				o = true;
 			} else {
 				o = false;
 			}
 	
 			return o;
-	
 		},
 		ieInfo;
-	// for old ie users
-	if ( $('.oldie').length ) {
+	
+	if ( $('.oldie').length ) {// for old ie users go black
 		
 		$('div, section').remove();
 		$('body').append('<p class="go-black-4-ie"></p>');
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 		
-	} else {
+	} else { // for normal users behave good :)
 		
-		$('img.rebuild').click( function () {
+		
+		
+		/* ------------------------ *
+		 *		 control icons		*
+		 * ------------------------ */
+		$('img.rebuild').click( function () { // open settings panel
 			panel.fadeIn(300).pauseTyping().find('section').slideDown(400);
 		});
 		
-		$('img.refresh').click( function () {
+		$('img.refresh').click( function () { // just rebuid with same settings
 			_rebuild();
 		});
 		
-		panel.find('ul li').click( function () {
+		panel.find('img.go-back').click( function () { // close panel without refreshing content
+			panel.fadeOut( 400 ).find('section').slideUp(300);
+			ltrs.startTyping();
+		});
+		
+		panel.find('img.go').click( function () { // close panel and rebuild content with chosen settings
+			panel.fadeOut( 400 ).find('section').slideUp(300);
+			_rebuild();
+		});
+		
+		
+		
+		/* ------------------------ *
+		 *		panel controls		*
+		 * ------------------------ */
+		
+		// list contols ( black buttons )
+		panel.find('ul li').click( function () { 
 			var that = $(this),
 				txt = that.text(), 
 				sel = '',
@@ -195,10 +214,11 @@ jQuery( function ($) {
 				keys = acLine.find( 'span' ),
 				i, contCount;
 			
-			if ( that.is('.select-typo li') ) {
-				that.parent().data( 'range', txt );
+			if ( that.is('.select-typo li') ) { // if its ranges list
+				
+				that.parent().data( 'range', txt ); // remember chosen range
 			
-				switch ( txt ) {
+				switch ( txt ) { // translate range to numbers of keys in line
 					case 'left'		:	sel = [0,1,2,3];				break;
 					case 'leftex'	:	sel = [0,1,2,3,4];				break;
 					case 'right'	:	sel = [6,7,8,9];				break;
@@ -206,59 +226,32 @@ jQuery( function ($) {
 					case 'both'		:	sel = [0,1,2,3,4,5,6,7,8,9];	break;
 				}
 				
-				acLine.data('selected', sel );
+				acLine.data('selected', sel ); // remember chosen keys
 				
-				panel.find('.line span').removeClass('selected');
+				panel.find('.line span').removeClass('selected'); // remove highlight from all keys
 				
 				for ( i = 0; i < sel.length; i += 1 ) {
-					keys.eq( sel[i] ).addClass('selected');
+					keys.eq( sel[i] ).addClass('selected'); //highlight proper keys
 				}
 				
 			}
 			
-			if ( that.is('.select-type li') ) {
-				if ( txt != that.parent().data('type') ){
-					contCount = panel.find('input.signs-count');
-					if ( txt === 'words' ) {
-						contCount.val( contCount.val()/4 );
-					} else if ( txt === 'letters' ) {
-						contCount.val( contCount.val()*4 );
-					}
+			if ( that.is('.select-type li') && txt != that.parent().data('type') ) { // if it's modes list, and it's beeing changed
+			
+					contCount = panel.find('input.signs-count'); // currently selected number of elements
+					
+					if ( txt === 'words' )		contCount.val( Math.round(contCount.val()/4) ); // number of elements depends on mode
+					if ( txt === 'letters' )	contCount.val( contCount.val()*4 ); // number of elements depends on mode
 					
 					that.parent().data( 'type', txt );
-				}
 			}
 			
 			
-			that.addClass('selected').siblings().removeClass('selected');
+			that.addClass('selected').siblings().removeClass('selected'); // just highlight controll
 			
 		});
 		
-		panel.find('img.go-back').click( function () {
-			panel.fadeOut( 400 ).find('section').slideUp(300);
-			ltrs.startTyping();
-		});
-		
-		panel.find('img.go').click( function () {
-			panel.fadeOut( 400 ).find('section').slideUp(300);
-			_rebuild();
-		});
-		
-		panel.find('input.signs-count').keydown( function (e) {
-			var key = e.keyCode, that = $(this)
-			if ( !_numberEdit( key ) ) e.preventDefault();
-			
-			if ( key === 38 && that.val() < 200 ) {
-				
-				that.val( -(-that.val()) + 1 );
-			}
-			
-			if ( key === 40 && that.val() > 10 ) {
-				that.val( that.val() - 1 );
-			}
-			
-		});
-		
+		// choose keyboard line
 		panel.find('.line').click( function () {
 			var next = $(this),
 				prev = next.siblings('.ac'),
@@ -274,22 +267,32 @@ jQuery( function ($) {
 			
 		});
 		
-		panel.find('input.signs-count').keyup( function () {
+		// number of items control
+		panel.find('input.signs-count').keydown( function (e) { // control used keys
+			var key = e.keyCode, that, contType, max, min;
 			
+			if ( !_useful( key ) ) e.preventDefault(); // if typed key is not number key, backspace or arrow left/right prevent from normal behaviour
+			
+			that = $(this);
+			contType = panel.find('.select-type').data('type');
+			
+			max = contType === 'letters' ? 200 : 50 ;
+			min = contType === 'letters' ? 20 : 5 ;
+			
+			if ( key === 38 && that.val() < max ) that.val( -(-that.val()) + 1 ); // if arrow up and didn't reach max - add one
+			if ( key === 40 && that.val() > min ) that.val( that.val() - 1 ); // if arrow down and didn't reach min - substract one
+			
+		});
+		panel.find('input.signs-count').keyup( function () { // control value after use of keys
 			var that = $(this),
-				contType = panel.find('.select-type').data('type');
+				contType = panel.find('.select-type').data('type'),
+				max = contType === 'letters' ? 200 : 50,
+				min = contType === 'letters' ? 20 : 5,
+				mid = contType === 'letters' ? 100 : 25;
 				
-			if ( contType === 'letters' ) {
-				if ( that.val() > 200 ) that.val(200);
-				if ( that.val() < 10 ) that.val(10);
-				if ( !that.val() ) that.val(100);
-			}
-					
-			if ( contType === 'words' ) {
-				if ( that.val() > 50 ) that.val(50);
-				if ( that.val() < 5 ) that.val(5);
-				if ( !that.val() ) that.val(25);
-			}
+			if ( that.val() > max )	that.val( max );
+			if ( that.val() < min )	that.val( min );
+			if ( !that.val() )		that.val( mid );
 			
 		});
 	}
