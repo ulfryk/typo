@@ -4,6 +4,8 @@
  */
 
 
+
+
 (function($){
 	/* ------------------------------ *
 	 *		extend jQuery object	  *
@@ -11,10 +13,21 @@
 	
 	var _err = 0, //'private' property containig up2date number of mistakes 
 		_errors = [], // 'private' property - array with info about those mistakes
+		_laps = [],// 'private' property - holding starts and stops of time counting machine
+		_time = { // 'private' property - time value holders
+			ms : 0,
+			sec : 0,
+			min : 0
+		},
+		_timerStatus = false,
 		_summary = function ( ltrs, count ) { // private method wich renders final info about accuracy, number of mistakes etc.
 				
 			var l = _errors.length, i,
-				sec = '<section class="error-info">\n\r<h2>Done with ' + l + ' errors - ' + Math.round( ( (count - l) / count )*100 ) + '% accuracy.</h2>\n\r<ol>';
+				sec = '<section class="error-info">\n\r<h2>';
+			
+			sec += 'Done with ' + l + ' errors - ' + Math.round( ( (count - l) / count )*100 ) + '% accuracy.<br/>';
+			sec += ' It took ' + $.timeCounter.getMin() + ':' + $.timeCounter.getSec() + '.' + $.timeCounter.getMs();
+			sec += ' - ' + $.timeCounter.getSpeed( count ) + ' S/s </h2><br/>\n\r<ol>';
 			
 			for ( i = 0; i < l; i += 1 ) {
 				sec += '<li>\n\r<p>You typed <strong>';
@@ -52,7 +65,19 @@
 			}
 			
 			return outChar;
-		}
+		},
+		_sumTime = function () {
+			var i, ms = 0;
+			for ( i = 0 ; i < _laps.length ; i+=1 ) {
+				ms += ( _laps[i].stop.getTime() - _laps[i].start.getTime() )
+			}
+			return ms;
+		},
+		_countTime = function ( ms ) {
+			_time.ms = ms % 1000;
+			_time.sec = ( (ms - _time.ms) / 1000 ) % 60;
+			_time.min = ( ( (ms - _time.ms) / 1000 ) - _time.sec ) / 60;
+		};
 	
 	$.fn.setItAll = function ( range, signs, row, dataType ) { // public method that gets new practice set from server and renders it
 		var postData = { // default data ( just in case )
@@ -81,6 +106,7 @@
 		context.html('').append( data ); 
 		$('section.error-info').remove(); // clear errors
 		_errors = []; // clear errors
+		$.timeCounter.kill();
 		
 		return context; // for chain use
 	};
@@ -91,11 +117,14 @@
 			lettCount = letters.length,
 			max = lettCount - 1,
 			iter = context.find('span.current').index();
-			
-			
+		
 		$(window).keydown( function (e) { // typing interactions
 			var ch, tch;
 			//_preventBrowser( e );
+			
+			if ( !_timerStatus ) {
+				$.timeCounter.start();
+			}
 			
 			ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0); // current letter charcode
 			tch = _translateChar(e.keyCode); // typed charcode
@@ -106,7 +135,7 @@
 				
 				if ( iter === max ) { // if came to the end
 					
-					context.pauseTyping(); // using another metod to puse/stop interactions
+					context.pauseTyping( true ); // using another metod to puse/stop interactions
 					_summary( letters, lettCount ); // use private method to show summary
 					
 				} else { // if not, highlight next letter
@@ -125,6 +154,7 @@
 				};
 				
 				letters.eq( iter ).addClass('err'); // red higlight mistyped letter
+				
 			}
 			
 		});
@@ -132,15 +162,63 @@
 		return context; // for chain use
 	};
 	
-	$.fn.pauseTyping = function () {
+	$.fn.pauseTyping = function ( stopTime ) {
 		var context = this;
-		
+		stopTime = stopTime ? stopTime : false;
+		$.timeCounter.stop( stopTime );
 		$(window).unbind('keydown'); // :-) and that's all for pause
-		
 		return context; // for chain use
 	};
 	
+	$.timeCounter = {
+		start : function () {
+			if ( !_timerStatus ) {
+				_laps[ _laps.length ] = {
+					start : new Date(),
+					stop : ''
+				};
+				_timerStatus = true;
+			}
+		},
+		stop : function ( fin ) {
+			if ( _timerStatus ) {
+				_laps[ _laps.length-1 ].stop = new Date();
+				if ( fin ) _countTime( _sumTime() );
+				_timerStatus = false;
+			}
+		},
+		kill : function () {
+			_laps = [];
+			_time.ms = 0;
+			_time.sec = 0;
+			_time.min = 0;
+		},
+		getMs : function () {
+			var out;
+			
+			if ( _time.ms > 99 ) {
+				out = _time.ms;
+			} else if ( _time.ms > 9 ) {
+				out = '0' + _time.ms;
+			} else {
+				out = '00' + _time.ms;
+			}
+			
+			return out;
+		},
+		getSec : function () {
+			return _time.sec < 10 ? '0' + _time.sec : _time.sec ;
+		},
+		getMin : function () {
+			return _time.min < 10 ? '0' + _time.min : _time.min ;
+		},
+		getSpeed : function ( count ) {
+			return Math.round(count / ( _sumTime() / 10000 )) / 10;
+		}
+	};
+	
 })(jQuery); // end extend $
+
 
 jQuery( function ($) { // on document/window load ...
 	
