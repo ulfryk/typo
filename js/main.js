@@ -3,31 +3,38 @@
  *
  */
 
-
-
-
 (function($){
 	/* ------------------------------ *
 	 *		extend jQuery object	  *
 	 * ------------------------------ */
 	
-	var _err = 0, //'private' property containig up2date number of mistakes 
-		_errors = [], // 'private' property - array with info about those mistakes
-		_laps = [],// 'private' property - holding starts and stops of time counting machine
-		_time = { // 'private' property - time value holders
+	var _err = 0,		// containig up2date number of mistakes 
+		_errors = [],	// array with info about those mistakes
+		_iter = 0,		// holding number of currently selected sign
+		_laps = [],		// holding starts and stops of time counting machine
+		_time = {		// time value holders
 			ms : 0,
 			sec : 0,
 			min : 0
 		},
-		_timerStatus = false,
-		_summary = function ( ltrs, count ) { // private method wich renders final info about accuracy, number of mistakes etc.
+		_timerStatus = false, // if timer is clicking (true) or paused (false)
+		_countAcc = function ( errors, signs) { // count accuracy
+			var accuracy = 100;
+			if ( errors < signs ) {
+				accuracy = Math.round( ((signs-errors) / signs)*100 );
+			} else {
+				accuracy = 0;
+			}
+			return accuracy;
+		},
+		_summary = function ( ltrs, count ) { // renders final info about accuracy, number of mistakes etc.
 				
 			var l = _errors.length, i,
 				sec = '<section class="error-info">\n\r<h2>';
 			
-			sec += 'Done with ' + l + ' errors - ' + Math.round( ( (count - l) / count )*100 ) + '% accuracy.<br/>';
-			sec += ' It took ' + $.timeCounter.getMin() + ':' + $.timeCounter.getSec() + '.' + $.timeCounter.getMs();
-			sec += ' - ' + $.timeCounter.getSpeed( count ) + ' S/s </h2><br/>\n\r<ol>';
+			sec += 'Done with ' + l + ' errors - ' + _countAcc( l, count ) + '% accuracy.<br/>'; //typing accuracy
+			sec += ' It took ' + $.timeCounter.getMin() + ':' + $.timeCounter.getSec() + '.' + $.timeCounter.getMs(); // time of typing
+			sec += ' - ' + $.timeCounter.getSpeed( count ) + ' S/s </h2><br/>\n\r<ol>'; // typing speed
 			
 			for ( i = 0; i < l; i += 1 ) {
 				sec += '<li>\n\r<p>You typed <strong>';
@@ -66,14 +73,14 @@
 			
 			return outChar;
 		},
-		_sumTime = function () {
+		_sumTime = function () { // outputs totalized time of typing
 			var i, ms = 0;
 			for ( i = 0 ; i < _laps.length ; i+=1 ) {
 				ms += ( _laps[i].stop.getTime() - _laps[i].start.getTime() )
 			}
 			return ms;
 		},
-		_countTime = function ( ms ) {
+		_countTime = function ( ms ) { // counts time of typing and sets proper values in '_time' object
 			_time.ms = ms % 1000;
 			_time.sec = ( (ms - _time.ms) / 1000 ) % 60;
 			_time.min = ( ( (ms - _time.ms) / 1000 ) - _time.sec ) / 60;
@@ -86,6 +93,8 @@
 				row: 'home',
 				type: 'letters'
 		}, container = this;
+		
+		container.pauseTyping();
 		
 		// some data type control
 		if ( range		&& typeof range === 'string' )		postData.range = range;
@@ -106,6 +115,7 @@
 		context.html('').append( data ); 
 		$('section.error-info').remove(); // clear errors
 		_errors = []; // clear errors
+		_iter = 0; //clear signs count
 		$.timeCounter.kill();
 		
 		return context; // for chain use
@@ -115,8 +125,8 @@
 		var context = this,
 			letters = context.find('span'),
 			lettCount = letters.length,
-			max = lettCount - 1,
-			iter = context.find('span.current').index();
+			max = lettCount - 1;
+			//iter = context.find('span.current').index();
 		
 		$(window).keydown( function (e) { // typing interactions
 			var ch, tch;
@@ -126,22 +136,22 @@
 				$.timeCounter.start();
 			}
 			
-			ch = letters.eq( iter ).text().toUpperCase().charCodeAt(0); // current letter charcode
+			ch = letters.eq( _iter ).text().toUpperCase().charCodeAt(0); // current letter charcode
 			tch = _translateChar(e.keyCode); // typed charcode
 				
 			if ( tch === ch ) { // case typed good
 				
-				letters.eq( iter ).removeClass('current err');
+				letters.eq( _iter ).removeClass('current err');
 				
-				if ( iter === max ) { // if came to the end
+				if ( _iter === max ) { // if came to the end
 					
 					context.pauseTyping( true ); // using another metod to puse/stop interactions
 					_summary( letters, lettCount ); // use private method to show summary
 					
 				} else { // if not, highlight next letter
 					
-					iter += 1;
-					letters.eq( iter ).addClass('current'); // not using '.next()' becouse in 'words' mode whole words are in div's so it won't work
+					_iter += 1;
+					letters.eq( _iter ).addClass('current'); // not using '.next()' becouse in 'words' mode whole words are in div's so it won't work
 					
 				}
 				
@@ -150,10 +160,10 @@
 				_errors[ _errors.length ] = { // add info about current mistake
 					letter: String.fromCharCode( ch ),
 					typed: String.fromCharCode( tch ),
-					pos: iter
+					pos: _iter
 				};
 				
-				letters.eq( iter ).addClass('err'); // red higlight mistyped letter
+				letters.eq( _iter ).addClass('err'); // red higlight mistyped letter
 				
 			}
 			
@@ -162,7 +172,7 @@
 		return context; // for chain use
 	};
 	
-	$.fn.pauseTyping = function ( stopTime ) {
+	$.fn.pauseTyping = function ( stopTime ) { // unbind typing functionality and pause or stop timer
 		var context = this;
 		stopTime = stopTime ? stopTime : false;
 		$.timeCounter.stop( stopTime );
@@ -170,8 +180,8 @@
 		return context; // for chain use
 	};
 	
-	$.timeCounter = {
-		start : function () {
+	$.timeCounter = { // timeCounter object ( jQuery extension )
+		start : function () { // start counting time ( also make new dates pair in _laps array ), orks only if it's paused or stopped
 			if ( !_timerStatus ) {
 				_laps[ _laps.length ] = {
 					start : new Date(),
@@ -180,22 +190,21 @@
 				_timerStatus = true;
 			}
 		},
-		stop : function ( fin ) {
+		stop : function ( fin ) { // pause or stop timer (if 'fin'), only when it's counting
 			if ( _timerStatus ) {
 				_laps[ _laps.length-1 ].stop = new Date();
 				if ( fin ) _countTime( _sumTime() );
 				_timerStatus = false;
 			}
 		},
-		kill : function () {
+		kill : function () { // reset all counter data
 			_laps = [];
 			_time.ms = 0;
 			_time.sec = 0;
 			_time.min = 0;
 		},
-		getMs : function () {
+		getMs : function () { // outputs miliseconds in 000 format
 			var out;
-			
 			if ( _time.ms > 99 ) {
 				out = _time.ms;
 			} else if ( _time.ms > 9 ) {
@@ -203,16 +212,15 @@
 			} else {
 				out = '00' + _time.ms;
 			}
-			
 			return out;
 		},
-		getSec : function () {
+		getSec : function () { // outputs seconds in 00 format
 			return _time.sec < 10 ? '0' + _time.sec : _time.sec ;
 		},
-		getMin : function () {
+		getMin : function () { // outputs minutes in 00 format
 			return _time.min < 10 ? '0' + _time.min : _time.min ;
 		},
-		getSpeed : function ( count ) {
+		getSpeed : function ( count ) { // outputs speed in signs per second
 			return Math.round(count / ( _sumTime() / 10000 )) / 10;
 		}
 	};
@@ -247,14 +255,10 @@ jQuery( function ($) { // on document/window load ...
 		ieInfo;
 	
 	if ( $('.oldie').length ) {// for old ie users go black
-		
 		$('div, section').remove();
 		$('body').append('<p class="go-black-4-ie"></p>');
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
-		
 	} else { // for normal users behave good :)
-		
-		
 		
 		/* ------------------------ *
 		 *		 control icons		*
@@ -278,13 +282,11 @@ jQuery( function ($) { // on document/window load ...
 		});
 		
 		
-		
 		/* ------------------------ *
 		 *		panel controls		*
 		 * ------------------------ */
 		
-		// list contols ( black buttons )
-		panel.find('ul li').click( function () { 
+		panel.find('ul li').click( function () { // list contols ( black buttons )
 			var that = $(this),
 				txt = that.text(), 
 				sel = '',
@@ -329,8 +331,7 @@ jQuery( function ($) { // on document/window load ...
 			
 		});
 		
-		// choose keyboard line
-		panel.find('.line').click( function () {
+		panel.find('.line').click( function () { // choose keyboard line
 			var next = $(this),
 				prev = next.siblings('.ac'),
 				sel = prev.data('selected');

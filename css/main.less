@@ -51,15 +51,6 @@ body {
 	}
 }
 
-img {
-	&.rebuild {
-		position:fixed;top:26px;left:26px;
-	}
-	
-	&.refresh {
-		position:fixed;top:170px;left:26px;
-	}
-}
 
 .go-black-4-ie {
 	
@@ -163,6 +154,18 @@ section {
 		line-height: 12px;
 		
 	}
+}
+
+.letters {
+	
+	strong {
+		
+		display: block;
+		
+		float: left;
+		
+	}
+
 }
 
 .settings-panel {
@@ -315,9 +318,37 @@ section {
 		padding: 0 40px 0 40px;
 	}
 	
-	.go {
+}
+
+img {
+	
+	cursor: pointer;
+	
+	display: block;
+	
+	opacity: 0.4;
+	
+	-moz-transition: opacity 0.2s linear;
+	-webkit-transition: opacity 0.2s linear;
+	-o-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
+	
+	&:hover {
+		opacity: 0.8;
+	}
+	
+	&.rebuild {
 		
-		display: block;
+		position:fixed;top:26px;left:26px;
+		
+	}
+	
+	&.refresh {
+		
+		position:fixed;top:170px;left:26px;
+		
+	}
+	&.go {
 		
 		margin-right: -460px;
 		
@@ -329,9 +360,7 @@ section {
 		
 	}
 	
-	.go-back {
-		
-		display: block;
+	&.go-back {
 		
 		margin-left: -460px;
 		
@@ -341,20 +370,6 @@ section {
 		
 		left: 50%;
 		
-	}
-
-}
-
-img {
-	cursor: pointer;
-	opacity: 0.4;
-	-moz-transition: opacity 0.2s linear;
-	-webkit-transition: opacity 0.2s linear;
-	-o-transition: opacity 0.2s linear;
-	transition: opacity 0.2s linear;
-	
-	&:hover {
-		opacity: 0.8;
 	}
 }
 

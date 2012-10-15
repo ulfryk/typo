@@ -55,12 +55,27 @@ class contentMaker {
 		return $output;
 	}
 	
-	public function getContent ( $type, $row, $range )
+	public function getContent ( $type, $row, $range, $count )
 	{
-		if ( $type === 'letters' )
-			$content = $this -> getLetters($row,$range);
-		elseif ( $type === 'words' )
-			$content = $this -> getWords('home', $range);
+		$content = array();
+		
+		if ( $type === 'letters' ) {
+			
+			$letters = $this -> getLetters($row,$range);
+			$randMax = count( $letters ) - 1;
+			for( $i = 0; $i < $count; $i++) {
+				$content[$i] = $letters[ mt_rand( 0, $randMax ) ];
+			}
+			
+		} elseif ( $type === 'words' ) {
+			
+			$words = $this -> getWords('home', $range);
+			$randMax = count( $words ) - 1;
+			for( $i = 0; $i < $count; $i++) {
+				$content[$i] = str_split( $words[ mt_rand( 0, $randMax ) ] . ' ' );
+			}
+			
+		}
 		
 		return $content;
 	}

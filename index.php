@@ -18,7 +18,7 @@ if ( $helper -> requestIsAjax() ) {
 	$count	=	$helper -> getValidCount();
 	
 	// get output from db
-	$content = $getter -> getContent( $type, $row, $range );
+	$content = $getter -> getContent( $type, $row, $range, $count );
 	
 	// show output
 	$helper -> render( $type, $content, $count ); // will include 'views/_letters.php' or 'views/_words.php' ( depends on $type value ) passing specific data
