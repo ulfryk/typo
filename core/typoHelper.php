@@ -24,7 +24,7 @@ class typoHelper {
 	{
 		$type = $this -> getValid( 'type' );
 		
-		$countMin = $type != 'words' ? 9 : 5;
+		$countMin = $type != 'words' ? 9 : 4;
 		$countDef = $type != 'words' ? 100 : 25;
 		$countMax = $type != 'words' ? 201 : 51;
 		
