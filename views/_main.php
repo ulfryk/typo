@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 7 ]> <html class="oldie ie7"> <![endif]-->
-<!--[if IE 8 ]> <html class="oldie ie8"> <![endif]-->
-<!--[if IE 9 ]> <html class="modern ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="modern noie"> <!--<![endif]-->
+<!--[if lt IE 9 ]> <html class="oldie"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 	<head>
 		<meta charset="UTF-8" />
 		<title> typo </title>
@@ -10,8 +8,8 @@
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body>
-		<img class="rebuild" src="images/wht_conf.png" />
-		<img class="refresh" src="images/wht_re.png" />
+		<img class="rebuild" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+		<img class="refresh" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
 		<div class="settings-panel">
 			<section><?php // create keyboard view with selected 'left' range of 'home' row
 			$keys =  str_split( 'qwertyuiopasdfghjkl;zxcvbnm,./' );
@@ -42,8 +40,8 @@
 					<li class="both">both</li>
 				</ul>
 			</section>
-			<img class="go" src="images/blck_go.png" />
-			<img class="go-back" src="images/blck_back.png" />
+			<img class="go" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+			<img class="go-back" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
 		</div><!-- end of settings panel -->
 		<section>
 			<p class="letters"> </p>

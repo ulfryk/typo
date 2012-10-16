@@ -255,7 +255,7 @@ jQuery( function ($) { // on document/window load ...
 		};
 	
 	if ( $('.oldie').length ) {// for old ie users go black
-		$('div, section').remove();
+		$('div, section, img').remove();
 		$('body').append('<p class="go-black-4-ie"></p>');
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 	} else { // for normal users behave good :)
