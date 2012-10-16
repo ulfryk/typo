@@ -126,11 +126,11 @@
 			letters = context.find('span'),
 			lettCount = letters.length,
 			max = lettCount - 1;
-			//iter = context.find('span.current').index();
+		
+		letters.eq( _iter ).addClass('current');
 		
 		$(window).keydown( function (e) { // typing interactions
 			var ch, tch;
-			//_preventBrowser( e );
 			
 			if ( !_timerStatus ) {
 				$.timeCounter.start();
@@ -233,6 +233,7 @@ jQuery( function ($) { // on document/window load ...
 	// semi global vars and functions
 	var ltrs = $('section p.letters'), // place for contents to type
 		panel = $('.settings-panel'), // the settings panel
+		ieInfo,
 		_rebuild = function () { // get values, send request and render new excercise
 			var range = panel.find('.select-typo').data( 'range' ) ? panel.find('.select-typo').data( 'range' ) : 'left',
 				count = panel.find('input.signs-count').val() ? -(-panel.find('input.signs-count').val()) : 50;
@@ -251,8 +252,7 @@ jQuery( function ($) { // on document/window load ...
 			}
 	
 			return o;
-		},
-		ieInfo;
+		};
 	
 	if ( $('.oldie').length ) {// for old ie users go black
 		$('div, section').remove();
@@ -279,6 +279,7 @@ jQuery( function ($) { // on document/window load ...
 		panel.find('img.go').click( function () { // close panel and rebuild content with chosen settings
 			panel.fadeOut( 400 ).find('section').slideUp(300);
 			_rebuild();
+			
 		});
 		
 		

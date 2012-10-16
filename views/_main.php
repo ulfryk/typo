@@ -14,26 +14,21 @@
 		<img class="refresh" src="images/wht_re.png" />
 		<div class="settings-panel">
 			<section><?php // create keyboard view with selected 'left' range of 'home' row
-				$keys =  str_split( 'qwertyuiopasdfghjkl;zxcvbnm,./' );
-				$i = 0;
-				$k = array(10,11,12,13);
-				foreach ($keys as $key):
-					
-					if ( $i === 10 ): ?>
+			$keys =  str_split( 'qwertyuiopasdfghjkl;zxcvbnm,./' );
+			$i = 0;
+			$k = array(10,11,12,13);
+			foreach ($keys as $key): ?>
+				<?php if ( $i === 10 ): ?>
 				<p class="line ac" data-selected="[0,1,2,3]">
-					<?php elseif ( $i % 10 === 0): ?>
+				<?php elseif ( $i % 10 === 0): ?>
 				<p class="line">
-					<?php endif; ?>
-					
+				<?php endif; ?>
 					<span <?php if(in_array($i, $k)) echo ' class="selected"' ?>><?php echo $key; ?></span>
-					
-					<?php if ( $i % 10 === 9): ?>
-				</p><?php
-				
-					endif;
-					$i++;
-				endforeach; ?>
-				
+				<?php if ( $i % 10 === 9): ?>
+				</p>
+				<?php endif; ?>
+			<?php $i++;
+			endforeach; ?>
 				<input type="text" class="signs-count" value="100" />
 				<ul class="select-type" data-type="letters">
 					<li class="selected">letters</li>
