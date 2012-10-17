@@ -4,7 +4,7 @@ class typoHelper {
 	
 	private $dictionary = array(
 		'row' => array('home','top','bottom'),
-		'range' => array('left','right','leftex','rightex','both'),
+		'range' => array('left','right','leftex','rightex','both','extended'),
 		'type' => array('letters','words')
 	);
 	

@@ -84,6 +84,13 @@
 			_time.ms = ms % 1000;
 			_time.sec = ( (ms - _time.ms) / 1000 ) % 60;
 			_time.min = ( ( (ms - _time.ms) / 1000 ) - _time.sec ) / 60;
+		},
+		_isTypo = function( key ) { // check if typed key is in typo range
+			var o = false, k = -(-key);
+	
+			if ( ( k > 64 && k < 91 ) || k === 186 || k === 188 || k === 190 || k === 191 || k === 32 ) o = true;
+	
+			return o;
 		};
 	
 	$.fn.setItAll = function ( range, signs, row, dataType ) { // public method that gets new practice set from server and renders it
@@ -130,14 +137,14 @@
 		letters.eq( _iter ).addClass('current');
 		
 		$(window).keydown( function (e) { // typing interactions
-			var ch, tch;
+			var ch, tch, charCode = e.keyCode;
 			
-			if ( !_timerStatus ) {
-				$.timeCounter.start();
-			}
+			if ( _isTypo(charCode) ) e.preventDefault();
+			
+			if ( !_timerStatus ) $.timeCounter.start();
 			
 			ch = letters.eq( _iter ).text().toUpperCase().charCodeAt(0); // current letter charcode
-			tch = _translateChar(e.keyCode); // typed charcode
+			tch = _translateChar( charCode ); // typed charcode
 				
 			if ( tch === ch ) { // case typed good
 				
