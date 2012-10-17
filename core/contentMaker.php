@@ -69,7 +69,7 @@ class contentMaker {
 			
 		} elseif ( $type === 'words' ) {
 			
-			$words = $this -> getWords('home', $range);
+			$words = $this -> getWords( $row, $range);
 			$randMax = count( $words ) - 1;
 			for( $i = 0; $i < $count; $i++) {
 				$content[$i] = str_split( $words[ mt_rand( 0, $randMax ) ] . ' ' );
