@@ -80,25 +80,35 @@ class contentMaker {
 		return $content;
 	}
 	
-	public function setWords ( $table )
+	public function setWords ( $table, $insert = false )
 	{
-		// db connection strings
-		//$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
-		//$user = $this->db_conf['username'];
-		//$pass = $this->db_conf['password'];
-		//$dbh = new PDO($mysql_db, $user, $pass);
+		
+		if ( $insert ) {
+			// db connection strings
+			$mysql_db = 'mysql:host=' . $this->db_conf['hostname'] . ';dbname=' . $this->db_conf['dbname'];
+			$user = $this->db_conf['username'];
+			$pass = $this->db_conf['password'];
+			$dbh = new PDO($mysql_db, $user, $pass);
+		}
+		
 		foreach ( $table as $row => $cnt ) {
 			echo '<div style="padding:50px">';
 			foreach ( $cnt as $range => $words ) {
 				foreach ( $words as $word ) {
+					
 					echo $row . ' : ' . $range . ' : ' . $word . '<br/>';
-					//$sql = 'INSERT INTO  `typo`.`words` (`word` , `row` , `range`  ) VALUES ( \'' . $word . '\',  \'' . $row . '\',  \'' . $range . '\' )';
-					//$dbh->exec( $sql );
+					
+					if ( $insert ) {
+						$sql = 'INSERT INTO  `typo`.`words` (`word` , `row` , `range`  ) VALUES ( \'' . $word . '\',  \'' . $row . '\',  \'' . $range . '\' )';
+						$dbh->exec( $sql );
+					}
+					
 				}
 			}
 			echo '</div>';
 		}
-		//$dbh = null;
+		
+		if ( $insert ) $dbh = null;
 	}
 	
 }
