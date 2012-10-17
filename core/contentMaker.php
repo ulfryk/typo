@@ -25,10 +25,22 @@ class contentMaker {
 	public function getLetters ( $row, $range )
 	{
 		// sql query
-		$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
+		$output = '';
+		
+		if ( $range === 'extended' )
+			$sql = 'SELECT pack FROM letters WHERE 1';
+		else
+			$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
+		
+		$stmt = $this -> dbQuery($sql);
+		
+		while ( $pack = $stmt->fetch(PDO::FETCH_OBJ)->pack ) {
+			$output .= $pack;
+		}
+		
 		
 		// get letters pack
-		$output = $this -> dbQuery($sql) -> fetch(PDO::FETCH_OBJ) -> pack;
+		
 		$dbh = null;
 		
 		//return array of signs to be used
