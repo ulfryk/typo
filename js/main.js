@@ -273,7 +273,7 @@ jQuery( function ($) { // on document/window load ...
 		
 		panel.find('img.go-back').click( function () { // close panel without refreshing content
 			panel.fadeOut( 400 ).find('section').slideUp(300);
-			ltrs.startTyping();
+			if ( ltrs.find('.current').length ) ltrs.startTyping();
 		});
 		
 		panel.find('img.go').click( function () { // close panel and rebuild content with chosen settings
