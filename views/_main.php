@@ -8,9 +8,15 @@
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body>
+		<header>
+			
+		</header>
+		
 		<img class="rebuild" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
 		<img class="refresh" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+		
 		<div class="settings-panel">
+		
 			<section><?php // create keyboard view with selected 'left' range of 'home' row
 			$keys =  str_split( 'qwertyuiopasdfghjkl;zxcvbnm,./' );
 			$i = 0;
@@ -27,11 +33,14 @@
 				<?php endif; ?>
 			<?php $i++;
 			endforeach; ?>
+			
 				<input type="text" class="signs-count" value="100" />
+				
 				<ul class="select-type" data-type="letters">
 					<li class="selected">letters</li>
 					<li>words</li>
 				</ul>
+				
 				<ul class="select-typo" data-typo="left">
 					<li class="selected">left</li>
 					<li>right</li>
@@ -39,12 +48,25 @@
 					<li>rightex</li>
 					<li class="both">both</li>
 				</ul>
+				
 			</section>
+			
 			<img class="go" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
 			<img class="go-back" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
-		</div><!-- end of settings panel -->
-		<section>
-			<p class="letters"> </p>
-		</section>
+			
+		</div><!-- end of .settings-panel -->
+		
+		<section class="typo-container">
+			<p class="letters">
+				<span>T</span>
+				<span>Y</span>
+				<span>P</span>
+				<span>O</span>
+			</p>
+		</section><!-- end of .typo-container -->
+		
+		<footer>
+			
+		</footer>
 	</body>
 </html>

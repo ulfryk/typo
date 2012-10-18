@@ -28,7 +28,7 @@ class contentMaker {
 		$output = '';
 		
 		if ( $range === 'extended' )
-			$sql = 'SELECT pack FROM letters WHERE 1';
+			$sql = 'SELECT pack FROM letters WHERE letters.range = "both"';
 		else
 			$sql = 'SELECT pack FROM letters WHERE letters.row = "' . $row . '" AND letters.range = "' . $range .'"';
 		

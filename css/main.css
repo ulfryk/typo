@@ -154,6 +154,16 @@ body {
 .go-black-4-ie strong {
   color: #da1;
 }
+header {
+  background: #444;
+  box-shadow: 0 -5px 10px 7px #000000;
+  height: 50px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+}
 section {
   background-color: rgba(255, 255, 255, 0.4);
   font-size: 30px;
@@ -201,6 +211,19 @@ section ol li {
   font-size: 10px;
   line-height: 12px;
 }
+footer {
+  background: #444;
+  box-shadow: 0 5px 10px 9px #000;
+  height: 50px;
+  left: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 30;
+}
+.typo-container {
+  margin-top: 50px;
+}
 .letters strong {
   display: block;
   float: left;
@@ -213,7 +236,7 @@ section ol li {
   bottom: 0;
   left: 0;
   right: 0;
-  top: 0;
+  top: 50px;
   z-index: 20;
 }
 .settings-panel section {
@@ -320,7 +343,7 @@ img.rebuild {
   height: 92px;
   left: 26px;
   position: fixed;
-  top: 26px;
+  top: 76px;
   width: 93px;
 }
 img.refresh {
@@ -328,7 +351,7 @@ img.refresh {
   height: 88px;
   left: 26px;
   position: fixed;
-  top: 170px;
+  top: 220px;
   width: 91px;
 }
 img.go {
