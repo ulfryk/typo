@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<header>
-			
+			<p><strong>Typo</strong></p>
 		</header>
 		
 		<img class="rebuild" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
