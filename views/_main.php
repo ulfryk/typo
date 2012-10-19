@@ -66,7 +66,7 @@
 		</section><!-- end of .typo-container -->
 		
 		<footer>
-			
+			<small>&copy; Copyright 2012 <a href="#">xxxx</a> :: produced by <a href="#">xxxx</a></small>
 		</footer>
 	</body>
 </html>

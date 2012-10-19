@@ -85,12 +85,18 @@
 			_time.sec = ( (ms - _time.ms) / 1000 ) % 60;
 			_time.min = ( ( (ms - _time.ms) / 1000 ) - _time.sec ) / 60;
 		},
-		_isTypo = function( key ) { // check if typed key is in typo range
+		_isTypo = function ( key ) { // check if typed key is in typo range
 			var o = false, k = -(-key);
 	
 			if ( ( k > 64 && k < 91 ) || k === 186 || k === 188 || k === 190 || k === 191 || k === 32 ) o = true;
 	
 			return o;
+		}, wind = $( window ), _windH,
+		_spreadV = function ( elem, isResized ) {
+			_windH = wind.height();
+			elem.css({
+				minHeight : _windH - 50
+			});
 		};
 	
 	$.fn.setItAll = function ( range, signs, row, dataType ) { // public method that gets new practice set from server and renders it
@@ -230,6 +236,14 @@
 		getSpeed : function ( count ) { // outputs speed in signs per second
 			return Math.round(count / ( _sumTime() / 10000 )) / 10;
 		}
+	};
+	
+	$.fn.spreadVertically = function () {
+		var that = this;
+		_spreadV( that, false );
+		$(window).resize( function () {
+			_spreadV( that, true );
+		});
 	};
 	
 })(jQuery); // end extend $
@@ -382,6 +396,13 @@ jQuery( function ($) { // on document/window load ...
 			if ( !that.val() )		that.val( mid );
 			
 		});
+		
+		/* ------------------------ *
+		 *		visual js			*
+		 * ------------------------ */
+		
+		$('body').spreadVertically();
+		
 	}
 });
 
