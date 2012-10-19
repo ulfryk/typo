@@ -1,3 +1,4 @@
+/* tables still need 'cellspacing="0"' in the markup */
 /* ------------------------------------ *
  * --- reset -------------------------- *
  * ------------------------------------ */
@@ -157,14 +158,6 @@ body {
 }
 header {
   background: #da1;
-  /*
-	background: -moz-linear-gradient(top, rgba(200,170,25,0.9) 0%, rgba(242,145,0,0.85) 100%); /* FF3.6+ 
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(200,170,25,0.9)), color-stop(100%,rgba(242,145,0,0.85))); /* Chrome,Safari4+ 
-	background: -webkit-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* Chrome10+,Safari5.1+ 
-	background: -o-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* Opera 11.10+ 
-	background: -ms-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* IE10+ 
-	background: linear-gradient(to bottom, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* W3C */
-
   background: -moz-linear-gradient(top, rgba(255, 225, 0, 0.9) 0%, rgba(206, 157, 10, 0.8) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 225, 0, 0.9)), color-stop(100%, rgba(206, 157, 10, 0.8)));
   background: -webkit-linear-gradient(top, rgba(255, 225, 0, 0.9) 0%, rgba(206, 157, 10, 0.8) 100%);
@@ -184,7 +177,7 @@ header p {
   font-size: 16px;
   line-height: 50px;
   margin: 0 auto;
-  text-shadow: 0 1px 0 #DBA912;
+  text-shadow: 0 1px 0 #fd0;
   width: 1020px;
 }
 section {
@@ -248,7 +241,7 @@ footer small {
   font-size: 10px;
 }
 footer small a {
-  color: #CB7E02;
+  color: #C6A504;
 }
 footer small a:hover {
   color: #B89413;
