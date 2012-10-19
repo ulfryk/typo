@@ -44,7 +44,7 @@ body {
 		
 		height: 60%;
 		
-		padding: 20px;
+		padding: 20px 20px 40px;
 		
 		width: 60%;
 		
@@ -71,7 +71,13 @@ body {
 
 header {
 	
-	background: #444;
+	background: #da1;
+	background: -moz-linear-gradient(top, rgba(200,170,25,0.9) 0%, rgba(242,145,0,0.85) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(200,170,25,0.9)), color-stop(100%,rgba(242,145,0,0.85))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(200,170,25,0.9) 0%,rgba(242,145,0,0.85) 100%); /* W3C */
 	
 	box-shadow: 0 -5px 10px 7px #000;
 	
@@ -176,21 +182,11 @@ section {
 }
 
 footer {
-	background: #444;
 	
-	box-shadow: 0 5px 10px 9px #000;
-		
-	height: 50px;
+	background: #da1;
 	
-	left: 0;
+	height: 20px;
 	
-	position: fixed;
-	
-	bottom: 0;
-	
-	width: 100%;
-	
-	z-index: 30;
 }
 
 .typo-container {
