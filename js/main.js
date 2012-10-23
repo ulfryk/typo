@@ -50,6 +50,7 @@
 			sec += '</ol>\n\r</section>';
 			
 			$('body').append( sec );
+			
 		},
 		_translateChar = function ( chr ) { // private method wich translates some key codes like "/" or ";" to accurate char codes
 			var outChar;
@@ -143,7 +144,7 @@
 		letters.eq( _iter ).addClass('current');
 		
 		$(window).keydown( function (e) { // typing interactions
-			var ch, tch, charCode = e.keyCode;
+			var ch, tch, charCode = e.keyCode, win = $(window), bod = $('body'), nextLetter;
 			
 			if ( _isTypo(charCode) ) e.preventDefault();
 			
@@ -158,14 +159,17 @@
 				
 				if ( _iter === max ) { // if came to the end
 					
-					context.pauseTyping( true ); // using another metod to puse/stop interactions
+					context.pauseTyping( true ); // using another method to pause/stop interactions
 					_summary( letters, lettCount ); // use private method to show summary
+					$('body').scrollTop( $('.error-info').position().top - 50 ); // show info if window is not high enough 
 					
 				} else { // if not, highlight next letter
 					
 					_iter += 1;
-					letters.eq( _iter ).addClass('current'); // not using '.next()' becouse in 'words' mode whole words are in div's so it won't work
-					
+					nextLetter = letters.eq( _iter ).addClass('current'); // not using '.next()' because in 'words' mode whole words are in div's so it won't work
+					if ( nextLetter.position().top + nextLetter.height() * 2 > win.height() + bod.scrollTop() ) { // if to close to bottom of page
+						bod.scrollTop( bod.scrollTop() + nextLetter.height() ); // scroll up a bit
+					}
 				}
 				
 			} else { // case typed bad
