@@ -28,6 +28,10 @@ if ( $helper -> requestIsAjax() ) {
 	// show output
 	$helper -> render(); // will include 'views/_main.php'
 	
+	// count ++ users
+	$counter = new userCounter();
+	$counter -> addUser( $_SERVER['REMOTE_ADDR'] );
+	
 }
 
 

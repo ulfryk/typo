@@ -13,11 +13,23 @@ SET time_zone = "+00:00";
 -- Baza danych: `typo`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla  `letters`
+-- Struktura tabeli dla `letters`
 --
 
 DROP TABLE IF EXISTS `letters`;
