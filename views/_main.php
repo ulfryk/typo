@@ -57,16 +57,11 @@
 		</div><!-- end of .settings-panel -->
 		
 		<section class="typo-container">
-			<p class="letters">
-				<span>T</span>
-				<span>Y</span>
-				<span>P</span>
-				<span>O</span>
-			</p>
+			<p class="letters"></p>
 		</section><!-- end of .typo-container -->
 		
 		<footer>
-			<small>&copy; Copyright 2012 SoundBox :: produced by <a href="http://www.ulfryk.pl" target="_blank">ulfryk</a></small>
+			<small>Copyright &copy; 2012 SoundBox :: created by <a href="http://www.ulfryk.pl" target="_blank">ulfryk</a></small>
 		</footer>
 	</body>
 </html>
