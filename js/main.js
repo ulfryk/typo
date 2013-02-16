@@ -30,26 +30,26 @@
 		_summary = function ( ltrs, count ) { // renders final info about accuracy, number of mistakes etc.
 				
 			var l = _errors.length, i,
-				sec = '<section class="error-info">\n\r<h2>';
+				sec = ['<section class="error-info">\n\r<h2>'];
 			
-			sec += 'Done with ' + l + ' errors - ' + _countAcc( l, count ) + '% accuracy.<br/>'; //typing accuracy
-			sec += ' It took ' + $.timeCounter.getMin() + ':' + $.timeCounter.getSec() + '.' + $.timeCounter.getMs(); // time of typing
-			sec += ' - ' + $.timeCounter.getSpeed( count ) + ' S/s </h2><br/>\n\r<ol>'; // typing speed
+			sec.push(['Done with ', l, ' errors - ', _countAcc( l, count ), '% accuracy.<br/>'].join('')); //typing accuracy
+			sec.push([' It took ', $.timeCounter.getMin() , ':', $.timeCounter.getSec(), '.', $.timeCounter.getMs()].join('')); // time of typing
+			sec.push([' - ', $.timeCounter.getSpeed( count ), ' S/s </h2><br/>\n\r<ol>'].join('')); // typing speed
 			
 			for ( i = 0; i < l; i += 1 ) {
-				sec += '<li>\n\r<p>You typed <strong>';
-				sec += _errors[i].typed === ' ' ? '_' : _errors[i].typed; //what you typed ( renders '_' when typed ' ' )
-				sec += '</strong> where should be <strong>';
-				sec += _errors[i].letter === ' ' ? '_' : _errors[i].letter; //what you should type ( renders '_' when typed ' ' )
-				sec += '</strong> <small>( pos: ';
-				sec += _errors[i].pos + 1; // on what position
-				sec += ' ) </small></p>\n\r</li>'
+				sec.push('<li>\n\r<p>You typed <strong>');
+				sec.push(_errors[i].typed === ' ' ? '_' : _errors[i].typed); //what you typed ( renders '_' when typed ' ' )
+				sec.push('</strong> where should be <strong>');
+				sec.push(_errors[i].letter === ' ' ? '_' : _errors[i].letter); //what you should type ( renders '_' when typed ' ' )
+				sec.push('</strong> <small>( pos: ');
+				sec.push(_errors[i].pos + 1); // on what position
+				sec.push(' ) </small></p>\n\r</li>')
 				
 				ltrs.eq( _errors[i].pos ).addClass('err'); // light up mistaken positions
 			}
-			sec += '</ol>\n\r</section>';
+			sec.push('</ol>\n\r</section>');
 			
-			$('body').append( sec );
+			$('body').append(sec.join(''));
 			
 		},
 		_translateChar = function ( chr ) { // private method wich translates some key codes like "/" or ";" to accurate char codes
@@ -280,7 +280,7 @@ jQuery( function ($) { // on document/window load ...
 		};
 	
 	if ( $('.oldie').length ) {// for old ie users go black
-		$('div, section, img').remove();
+		$('div, section, img, footer').remove();
 		$('body').append('<p class="go-black-4-ie"></p>');
 		$('.go-black-4-ie').html('<strong>Upgrade your browser</strong> to IE9 or higher, <strong>or change it</strong> to Chrome, Firefox, Opera, Safari or whatever works good.');
 	} else { // for normal users behave good :)

@@ -6,7 +6,7 @@
 		<title> typo </title>
 		<script src="js/main.js.php"></script>
 		<link rel="stylesheet" href="css/main.css" />
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
 		<header>
